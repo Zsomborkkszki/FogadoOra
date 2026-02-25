@@ -1,5 +1,5 @@
 Fogadóóra Bejelentkező Rendszer
-Ez egy egyszerű, PHP és MySQL alapú webes alkalmazás, amely lehetővé teszi fogadóórák meghirdetését és a rajtuk való részvétel (bejelentkezők) adminisztrációját. A rendszert úgy terveztük, hogy egy adott személy (pl. tanár) fogadóóráit kezelje.
+Ez egy egyszerű, C# és MySQL alapú webes alkalmazás, amely lehetővé teszi fogadóórák meghirdetését és a rajtuk való részvétel (bejelentkezők) adminisztrációját. A rendszert úgy terveztük, hogy egy adott személy (pl. tanár) fogadóóráit kezelje.
 
   Alapvető funkciók
 A rendszer két fő entitást kezel: Bejelentkezők és Fogadóórák.
@@ -16,7 +16,7 @@ Lekérdezések és listázások:
 
   -Egy konkrét fogadóóra adatainak megtekintése.
 
-Adatkezelés (CRUD műveletek):
+Adatkezelés:
 
   -Bejelentkezők: Új bejelentkező felvitele, meglévő adatainak módosítása, törlése.
 

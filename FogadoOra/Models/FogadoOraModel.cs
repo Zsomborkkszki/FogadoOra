@@ -6,17 +6,22 @@ using System.Threading.Tasks;
 
 namespace FogadoOra.Models
 {
-    internal class FogadoOra
+    internal class FogadoOraModel
     {
         string place;
         DateTime start;
         DateTime lenght;
 
-        public FogadoOra(string place, DateTime start, DateTime lenght)
+        public FogadoOraModel(string place, DateTime start, DateTime lenght)
         {
             this.Place = place;
             this.Start = start;
             this.Lenght = lenght;
+        }
+
+        public FogadoOraModel()
+        {
+
         }
 
         public string Place { get => place; set => place = value; }

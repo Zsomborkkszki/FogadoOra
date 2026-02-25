@@ -14,10 +14,10 @@ namespace FogadoOra.Models
         }
 
 
-        public void MegjelenitOra(List<FogadoOra> orak)
+        public void MegjelenitOra(List<FogadoOraModel> orak)
         {
             Console.WriteLine("Fogadó órák");
-            foreach(FogadoOra ora in orak)
+            foreach(FogadoOraModel ora in orak)
             {
                 Console.WriteLine(ora.Place);
                 Console.WriteLine(ora.Start);

@@ -1,4 +1,5 @@
 ﻿using FogadoOra.Models;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,15 +10,36 @@ namespace FogadoOra.Controllers
 {
     internal class FogadoOraController
     {
-        void CreateDataBaseConnection()
+        MySqlConnection DataBaseConnection()
         {
+            string connectionString = "server=localhost;database=fogadoora;user=root;password=;";
 
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                return conn;
+                //Console.WriteLine("Sikeres kapcsolódás!");
+            }
         }
 
-        FogadoOraModel GetAllFogadoOra()
+        List<FogadoOraModel> GetAllFogadoOra()
         {
+            MySqlConnection conn = DataBaseConnection();
+            conn.Open();
+            conn.Close();
 
-            return new FogadoOraModel();
+            return new List<FogadoOraModel>()
+            {
+                new FogadoOraModel("101-es terem", DateTime.Parse("2025-01-01"), 70),
+                new FogadoOraModel("101-es terem", DateTime.Parse("2025-01-01"), 70),
+                new FogadoOraModel("101-es terem", DateTime.Parse("2025-01-01"), 70),
+                new FogadoOraModel("101-es terem", DateTime.Parse("2025-01-01"), 70),
+                new FogadoOraModel("101-es terem", DateTime.Parse("2025-01-01"), 70),
+                new FogadoOraModel("101-es terem", DateTime.Parse("2025-01-01"), 70),
+                new FogadoOraModel("101-es terem", DateTime.Parse("2025-01-01"), 70),
+                new FogadoOraModel("101-es terem", DateTime.Parse("2025-01-01"), 70),
+                new FogadoOraModel("101-es terem", DateTime.Parse("2025-01-01"), 70),
+                new FogadoOraModel("101-es terem", DateTime.Parse("2025-01-01"), 70),
+            };
         }
 
         FogadoOraModel GetFogadoOraByDate()

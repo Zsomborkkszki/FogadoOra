@@ -10,9 +10,9 @@ namespace FogadoOra.Models
     {
         string place;
         DateTime start;
-        DateTime lenght;
+        int lenght;
 
-        public FogadoOraModel(string place, DateTime start, DateTime lenght)
+        public FogadoOraModel(string place, DateTime start, int lenght)
         {
             this.Place = place;
             this.Start = start;

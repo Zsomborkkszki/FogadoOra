@@ -26,18 +26,5 @@ namespace FogadoOra.Models
         public string Email { get => email; set => email = value; }
         public string Mobile { get => mobile; set => mobile = value; }
 
-        public void Read()
-        {
-            //mysql read
-            MySql.Data.MySqlClient.MySqlConnection conn = new MySql.Data.MySqlClient.MySqlConnection("server=localhost;user=root;database=fogadoora");
-            conn.Open();
-            MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand("SELECT * FROM bejelentkezo", conn);
-            MySql.Data.MySqlClient.MySqlDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                Console.WriteLine(reader["id"] + " " + reader["name"] + " " + reader["email"] + " " + reader["mobile"]);
-            }
-        }
-
     }
 }

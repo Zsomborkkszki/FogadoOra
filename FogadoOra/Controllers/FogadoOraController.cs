@@ -85,9 +85,27 @@ namespace FogadoOra.Controllers
             return new List<FogadoOraModel>();
         }
 
-        void CreateFogadoOra()
+        public void CreateFogadoOra(int placeId, string start, int lenght)
         {
+            string connectionString = "server=localhost;database=fogadoora;user=root;password=;";
 
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                string query = @"INSERT INTO `fogadoora` (`Id`, `Helyszin_Id`, `Start`, `Lenght`) VALUES (NULL, @placeId, @start, @lenght);";
+
+                conn.Open();
+
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@placeId", placeId);
+                    cmd.Parameters.AddWithValue("@start", start);
+                    cmd.Parameters.AddWithValue("@lenght", lenght);
+
+                    cmd.ExecuteNonQuery();
+                }
+
+                conn.Close();
+            }
         }
 
         void UpdateFogadoOra()
@@ -95,9 +113,24 @@ namespace FogadoOra.Controllers
 
         }
 
-        void DeleteFogadoOra()
+        void DeleteFogadoOra(string date)
         {
+            string connectionString = "server=localhost;database=fogadoora;user=root;password=;";
 
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                string query = @"DELETE FROM fogadoora WHERE Start = @date";
+
+                conn.Open();
+
+                using (MySqlCommand cmd = new MySqlCommand(query, conn)) 
+                {
+                    cmd.Parameters.AddWithValue("@date", date);
+                    cmd.ExecuteNonQuery();
+                }
+
+                conn.Close();
+            }    
         }
     }
 }

@@ -148,6 +148,39 @@ namespace FogadoOra.Controllers
             return fogadoorak;
         }
 
+        public List<FogadoOraModel> GetAllFogadoOraOfUser(int id)
+        {
+            string connectionString = "server=localhost;database=fogadoora;user=root;password=;";
+            List<FogadoOraModel> fogadoorak = new List<FogadoOraModel>();
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                string query = "SELECT f.* FROM fogadoora f JOIN jelentkezes j ON f.Id = j.Fogadoora_Id WHERE j.Bejelentkezo_Id = 3;";
+
+                conn.Open();
+
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                {
+
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            fogadoorak.Add(new FogadoOraModel
+                            {
+                                Id = reader.GetInt32("Id"),
+                                PlaceId = reader.GetInt32("Helyszin_Id"),
+                                Start = reader.GetDateTime("Start"),
+                                Lenght = reader.GetInt32("Lenght"),
+                            });
+                        }
+                    }
+                }
+            }
+
+            return fogadoorak;
+        }
+
         public void CreateFogadoOra(int placeId, string start, int lenght)
         {
             string connectionString = "server=localhost;database=fogadoora;user=root;password=;";

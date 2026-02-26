@@ -23,9 +23,14 @@ namespace FogadoOra.Controllers
 
         public List<FogadoOraModel> GetAllFogadoOra()
         {
-            MySqlConnection conn = DataBaseConnection();
-            conn.Open();
-            conn.Close();
+            string connectionString = "server=localhost;database=fogadoora;user=root;password=;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+                Console.WriteLine("Sikeres kapcsolódás!");
+                conn.Close();
+            }
 
             return new List<FogadoOraModel>()
             {

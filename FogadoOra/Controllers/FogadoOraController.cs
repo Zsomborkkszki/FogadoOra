@@ -172,7 +172,23 @@ namespace FogadoOra.Controllers
 
         public void UpdateFogadoOra(string id, string valtoztatni, string ujertek)
         {
-            string connectionString = "server=localhost;database=fogadoora;user=root;password=;";
+            Console.WriteLine("Válasszon szerkesztendő Értéket:\n1. Helyszin_Id\n2. Kezdési időpont\n3. Hossz");
+            string valasztas = Console.ReadLine();
+
+            if (valasztas == "1")
+            {
+
+            }
+            else if (valasztas == "2")
+            {
+
+            }
+            else if (valasztas != "3") 
+            {
+            
+            }
+
+                string connectionString = "server=localhost;database=fogadoora;user=root;password=;";
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {

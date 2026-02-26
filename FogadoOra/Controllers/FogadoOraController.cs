@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace FogadoOra.Controllers
 {
@@ -79,10 +80,71 @@ namespace FogadoOra.Controllers
             return fogadoorak;
         }
 
-        List<FogadoOraModel> GetTodayFogadoOras()
+        public List<FogadoOraModel> GetFogadoOrakOfDay(string date)
         {
+            string connectionString = "server=localhost;database=fogadoora;user=root;password=;";
+            List<FogadoOraModel> fogadoorak = new List<FogadoOraModel>();
 
-            return new List<FogadoOraModel>();
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                string query = "SELECT * FROM fogadoora WHERE DATE(Start) = @date;";
+
+                conn.Open();
+
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@date", date);
+
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            fogadoorak.Add(new FogadoOraModel
+                            {
+                                Id = reader.GetInt32("Id"),
+                                PlaceId = reader.GetInt32("Helyszin_Id"),
+                                Start = reader.GetDateTime("Start"),
+                                Lenght = reader.GetInt32("Lenght"),
+                            });
+                        }
+                    }
+                }
+            }
+
+            return fogadoorak;
+        }
+
+        public List<FogadoOraModel> GetTodayFogadoOras()
+        {
+            string connectionString = "server=localhost;database=fogadoora;user=root;password=;";
+            List<FogadoOraModel> fogadoorak = new List<FogadoOraModel>();
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                string query = "SELECT * FROM fogadoora WHERE Start >= CURDATE() AND Start < CURDATE() + INTERVAL 1 DAY";
+
+                conn.Open();
+
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                {
+
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            fogadoorak.Add(new FogadoOraModel
+                            {
+                                Id = reader.GetInt32("Id"),
+                                PlaceId = reader.GetInt32("Helyszin_Id"),
+                                Start = reader.GetDateTime("Start"),
+                                Lenght = reader.GetInt32("Lenght"),
+                            });
+                        }
+                    }
+                }
+            }
+
+            return fogadoorak;
         }
 
         public void CreateFogadoOra(int placeId, string start, int lenght)
@@ -108,9 +170,27 @@ namespace FogadoOra.Controllers
             }
         }
 
-        void UpdateFogadoOra()
+        public void UpdateFogadoOra(string id, string valtoztatni, string ujertek)
         {
+            string connectionString = "server=localhost;database=fogadoora;user=root;password=;";
 
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                string query = $"UPDATE fogadoora SET {valtoztatni} = @ujErtek WHERE Id = @Id";
+
+                conn.Open();
+
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Id", id);
+                    cmd.Parameters.AddWithValue("@valtoztatni", valtoztatni);
+                    cmd.Parameters.AddWithValue("@ujErtek", ujertek);
+                    
+                    cmd.ExecuteNonQuery();
+                }
+
+                conn.Close();
+            }
         }
 
         public void DeleteFogadoOra(int id)

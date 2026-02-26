@@ -7,14 +7,9 @@ namespace FogadoOra
 {
     internal class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            List<FogadoOraModel> orak = new FogadoOraController().GetTodayFogadoOras();
-
-            foreach (var item in orak)
-            {
-                Console.WriteLine(item.Id);
-            }
+            new FogadoOraController().UpdateFogadoOra("2");
         }
     }
 }

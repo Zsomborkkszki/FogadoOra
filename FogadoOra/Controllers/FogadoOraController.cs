@@ -1,4 +1,5 @@
 ﻿using FogadoOra.Models;
+using FogadoOra.View;
 using MySql.Data.MySqlClient;
 using Mysqlx.Resultset;
 using System;
@@ -172,23 +173,33 @@ namespace FogadoOra.Controllers
 
         public void UpdateFogadoOra(string id)
         {
-            Console.WriteLine("Válasszon szerkesztendő Értéket:\n1. Helyszin_Id\n2. Kezdési időpont\n3. Hossz\n\n-->");
+            Console.Clear();
+
+            Console.Write("Válasszon szerkesztendő Értéket:\n1. Helyszin_Id\n2. Kezdési időpont\n3. Hossz\n\n--> ");
             string valasztas = Console.ReadLine();
+            string valtoztatni = "";
 
             if (valasztas == "1")
             {
-                string valtoztatni = "Helyszin_Id";
+                valtoztatni = "Helyszin_Id";
             }
             else if (valasztas == "2")
             {
-                string valtoztatni = "Start";
+                valtoztatni = "Start";
             }
-            else if (valasztas != "3") 
+            else if (valasztas == "3") 
             {
-                string valtoztatni = "Lenght";
+                valtoztatni = "Lenght";
+            }
+            else
+            {
+                Console.WriteLine("Helytelen paraméter");
+                Console.ReadLine();
+                Console.Clear();
+                new Megjelenites().FoMegjelenites();
             }
 
-            Console.WriteLine("Új érték --> ");
+            Console.Write("Új érték --> ");
             string ujErtek = Console.ReadLine();
 
             string connectionString = "server=localhost;database=fogadoora;user=root;password=;";
@@ -202,8 +213,7 @@ namespace FogadoOra.Controllers
                 using (MySqlCommand cmd = new MySqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@Id", id);
-                    cmd.Parameters.AddWithValue("@valtoztatni", valtoztatni);
-                    cmd.Parameters.AddWithValue("@ujErtek", ujertek);
+                    cmd.Parameters.AddWithValue("@ujErtek", ujErtek);
                     
                     cmd.ExecuteNonQuery();
                 }

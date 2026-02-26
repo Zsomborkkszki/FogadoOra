@@ -170,25 +170,28 @@ namespace FogadoOra.Controllers
             }
         }
 
-        public void UpdateFogadoOra(string id, string valtoztatni, string ujertek)
+        public void UpdateFogadoOra(string id)
         {
-            Console.WriteLine("Válasszon szerkesztendő Értéket:\n1. Helyszin_Id\n2. Kezdési időpont\n3. Hossz");
+            Console.WriteLine("Válasszon szerkesztendő Értéket:\n1. Helyszin_Id\n2. Kezdési időpont\n3. Hossz\n\n-->");
             string valasztas = Console.ReadLine();
 
             if (valasztas == "1")
             {
-
+                string valtoztatni = "Helyszin_Id";
             }
             else if (valasztas == "2")
             {
-
+                string valtoztatni = "Start";
             }
             else if (valasztas != "3") 
             {
-            
+                string valtoztatni = "Lenght";
             }
 
-                string connectionString = "server=localhost;database=fogadoora;user=root;password=;";
+            Console.WriteLine("Új érték --> ");
+            string ujErtek = Console.ReadLine();
+
+            string connectionString = "server=localhost;database=fogadoora;user=root;password=;";
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {

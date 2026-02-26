@@ -26,6 +26,6 @@ namespace FogadoOra.Models
 
         public string Place { get => place; set => place = value; }
         public DateTime Start { get => start; set => start = value; }
-        public DateTime Lenght { get => lenght; set => lenght = value; }
+        public int Lenght { get => lenght; set => lenght = value; }
     }
 }

@@ -108,9 +108,27 @@ namespace FogadoOra.Controllers
             }
         }
 
-        void UpdateFogadoOra()
+        public void UpdateFogadoOra(string id, string valtoztatni, string ujertek)
         {
+            string connectionString = "server=localhost;database=fogadoora;user=root;password=;";
 
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                string query = @"UPDATE fogadoora SET @valtoztatni = @ujErtek WHERE Id = @Id";
+
+                conn.Open();
+
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Id", id);
+                    cmd.Parameters.AddWithValue("@valtoztatni", valtoztatni);
+                    cmd.Parameters.AddWithValue("@ujErtek", ujertek);
+                    
+                    cmd.ExecuteNonQuery();
+                }
+
+                conn.Close();
+            }
         }
 
         public void DeleteFogadoOra(int id)

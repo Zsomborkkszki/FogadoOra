@@ -113,7 +113,7 @@ namespace FogadoOra.Controllers
 
         }
 
-        void DeleteFogadoOra(string date)
+        public void DeleteFogadoOra(string date)
         {
             string connectionString = "server=localhost;database=fogadoora;user=root;password=;";
 

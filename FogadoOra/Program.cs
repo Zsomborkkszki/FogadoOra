@@ -9,7 +9,7 @@ namespace FogadoOra
     {
         static void Main(string[] args)
         {
-            new FogadoOraController().CreateFogadoOra(1, "2030-01-01 01:00:00", 2);
+            new FogadoOraController().DeleteFogadoOra("2030-0-01 01:00:00");
         }
     }
 }

@@ -16,14 +16,14 @@ namespace FogadoOra.View
             bool bejelentkezve = false;
             int current_point = 0;
             bool fut = true;
-            Action[] fuggvenyek = { FogadoOraMegjelenites, OraModositas, OraTorles, UserMegjelenites, UserModositas, UserTorles, Beallitasok };
+            Action[] fuggvenyek = { FogadoOraMegjelenites, OraMegjelenitesDatum, OraTorles,  UserModositas, UserTorles, Beallitasok };
 
             string[] fuggvenyNevek =
 {
     "Fogadóóra megjelenítés",
-    "Óra módosítás",
+    "Óra megjelenites Dátum alapján",
     "Óra törlés",
-    "Felhasználó megjelenítés",
+    
     "Felhasználó módosítás",
     "Felhasználó törlés",
     "Beállítások"
@@ -73,6 +73,7 @@ namespace FogadoOra.View
                         break;
 
                     case ConsoleKey.Enter:
+                        Console.Clear();
                         fuggvenyek[current_point]();
                         Console.ReadLine();
                         break;
@@ -116,17 +117,33 @@ namespace FogadoOra.View
             Console.WriteLine($"| {"Helyszín ID",-15} | {"Kezdés",-22} | {"Hossz",-10} |");
 
             // 2. Elválasztó vonal rajzolása
-            Console.WriteLine(new string('-', 55));
+            Console.WriteLine(new string('-', 56));
 
             // 3. Adatok kiírása soronként
             foreach (FogadoOraModel ora in fogadoOrak)
             {
                 Console.WriteLine($"| {ora.PlaceId,-15} | {ora.Start,-22} | {ora.Lenght,-10} |");
             }
+            Console.WriteLine(new string('-', 56));
         }
 
-        public void UserMegjelenites()
+        public void OraMegjelenitesDatum()
         {
+
+            Console.WriteLine("Adjon meg egy dátumot (2026-01-01 formátumban): ");
+            FogadoOraController controller = new FogadoOraController();
+            List<FogadoOraModel> fogadoOrak = controller.GetFogadoOraByDate(DateTime.Parse(Console.ReadLine()));
+            Console.WriteLine($"| {"Helyszín ID",-15} | {"Kezdés",-22} | {"Hossz",-10} |");
+
+            // 2. Elválasztó vonal rajzolása
+            Console.WriteLine(new string('-', 56));
+
+            // 3. Adatok kiírása soronként
+            foreach (FogadoOraModel ora in fogadoOrak)
+            {
+                Console.WriteLine($"| {ora.PlaceId,-15} | {ora.Start,-22} | {ora.Lenght,-10} |");
+            }
+            Console.WriteLine(new string('-', 56));
 
         }
 

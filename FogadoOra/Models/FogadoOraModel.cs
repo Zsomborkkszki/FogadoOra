@@ -8,9 +8,9 @@ namespace FogadoOra.Models
 {
     internal class FogadoOraModel
     {
-        public FogadoOraModel(int place, DateTime start, int lenght)
+        public FogadoOraModel(string place, DateTime start, int lenght)
         {
-            this.PlaceId = place;
+            this.Place = place;
             this.Start = start;
             this.Lenght = lenght;
         }
@@ -21,7 +21,7 @@ namespace FogadoOra.Models
         }
 
         public int Id { get; set; }
-        public int PlaceId { get; set; }
+        public string Place { get; set; }
         public DateTime Start { get; set; }
         public int Lenght { get; set; }
     }

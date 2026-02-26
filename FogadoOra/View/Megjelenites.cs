@@ -121,7 +121,7 @@ namespace FogadoOra.View
             // 3. Adatok kiírása soronként
             foreach (FogadoOraModel ora in fogadoOrak)
             {
-                Console.WriteLine($"| {ora.PlaceId,-15} | {ora.Start,-22} | {ora.Lenght,-10} |");
+                Console.WriteLine($"| {ora.Place,-15} | {ora.Start,-22} | {ora.Lenght,-10} |");
             }
         }
 

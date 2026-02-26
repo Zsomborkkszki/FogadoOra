@@ -1,10 +1,11 @@
-﻿using System;
+﻿using FogadoOra.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FogadoOra.Models
+namespace FogadoOra.View
 {
     internal class Views
     {

@@ -113,19 +113,19 @@ namespace FogadoOra.Controllers
 
         }
 
-        public void DeleteFogadoOra(string date)
+        public void DeleteFogadoOra(int id)
         {
             string connectionString = "server=localhost;database=fogadoora;user=root;password=;";
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
-                string query = @"DELETE FROM fogadoora WHERE Start = @date";
+                string query = @"DELETE FROM fogadoora WHERE Id = @Id";
 
                 conn.Open();
 
                 using (MySqlCommand cmd = new MySqlCommand(query, conn)) 
                 {
-                    cmd.Parameters.AddWithValue("@date", date);
+                    cmd.Parameters.AddWithValue("@Id", id);
                     cmd.ExecuteNonQuery();
                 }
 

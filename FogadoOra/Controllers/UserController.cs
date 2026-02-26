@@ -1,4 +1,5 @@
 ﻿using System;
+using FogadoOra.Models;
 using MySql.Data.MySqlClient;
 
 namespace FogadoOra.Controllers
@@ -31,7 +32,7 @@ namespace FogadoOra.Controllers
         /// Felhasználói bejelentkezés, ahol a felhasználó megadja a nevét és e-mail címét, majd ellenőrzésre kerülnek a "bejelentkezo" táblában. 
         /// Sikeres bejelentkezés esetén üdvözlő üzenet jelenik meg, ellenkező esetben hibaüzenet.
         /// </summary>
-        public void Login()
+        public Bejelentkezo Login()
         {
             using (MySqlConnection connector = new MySqlConnection(connectionString))
             {
@@ -50,10 +51,13 @@ namespace FogadoOra.Controllers
                     if (reader.Read())
                     {
                         Console.WriteLine($"Sikeres bejelentkezés, üdvözöllek {nev}!");
+                        Bejelentkezo user = new Bejelentkezo((int)reader["Id"], (string)reader["Name"], (string)reader["Email"], (string)reader["Mobile"]);
+                        return user;
                     }
                     else
                     {
                         Console.WriteLine("Hiba: Nem található ilyen felhasználó, vagy a megadott e-mail cím nem egyezik!");
+                        return null;
                     }
                 }
             }

@@ -1,4 +1,5 @@
-﻿using FogadoOra.Models;
+﻿using FogadoOra.Controllers;
+using FogadoOra.Models;
 using System;
 using System.Collections.Generic;
 
@@ -8,8 +9,7 @@ namespace FogadoOra
     {
         static void Main(string[] args)
         {
-            Bejelentkezo bejelentkezo = new Bejelentkezo(0, "", "", "");
-            bejelentkezo.Read();
+            new FogadoOraController().GetAllFogadoOra();
         }
     }
 }

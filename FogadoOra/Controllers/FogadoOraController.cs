@@ -21,7 +21,7 @@ namespace FogadoOra.Controllers
             }
         }
 
-        List<FogadoOraModel> GetAllFogadoOra()
+        public List<FogadoOraModel> GetAllFogadoOra()
         {
             MySqlConnection conn = DataBaseConnection();
             conn.Open();

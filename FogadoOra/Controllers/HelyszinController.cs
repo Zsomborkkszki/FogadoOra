@@ -55,7 +55,6 @@ namespace FogadoOra.Controllers
                 command.Parameters.AddWithValue("@OldName", nev);
                 command.ExecuteNonQuery();
                 Console.WriteLine("Sikeres helyszín módosítás!");
-                
             }
         }
     }

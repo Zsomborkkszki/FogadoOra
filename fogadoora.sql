@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2026. Feb 26. 09:38
+-- Létrehozás ideje: 2026. Feb 26. 11:47
 -- Kiszolgáló verziója: 10.4.32-MariaDB
 -- PHP verzió: 8.2.12
 
@@ -124,35 +124,37 @@ INSERT INTO `helyszin` (`Id`, `Name`) VALUES
 
 DROP TABLE IF EXISTS `jelentkezes`;
 CREATE TABLE `jelentkezes` (
+  `Id` int(11) NOT NULL,
   `Fogadoora_Id` int(11) NOT NULL,
-  `Bejelentkezo_Id` int(11) NOT NULL
+  `Bejelentkezo_Id` int(11) NOT NULL,
+  `Jelentkezes_Ideje` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
 --
 -- A tábla adatainak kiíratása `jelentkezes`
 --
 
-INSERT INTO `jelentkezes` (`Fogadoora_Id`, `Bejelentkezo_Id`) VALUES
-(1, 1),
-(1, 2),
-(1, 3),
-(2, 4),
-(2, 5),
-(3, 6),
-(3, 7),
-(4, 8),
-(4, 9),
-(4, 10),
-(5, 11),
-(6, 12),
-(6, 13),
-(7, 14),
-(7, 15),
-(8, 16),
-(9, 17),
-(9, 18),
-(10, 19),
-(10, 20);
+INSERT INTO `jelentkezes` (`Id`, `Fogadoora_Id`, `Bejelentkezo_Id`, `Jelentkezes_Ideje`) VALUES
+(1, 1, 1, '2026-02-26 10:17:11'),
+(2, 2, 1, '2026-02-26 10:17:11'),
+(3, 5, 1, '2026-02-26 10:17:11'),
+(4, 1, 2, '2026-02-26 10:17:11'),
+(5, 3, 2, '2026-02-26 10:17:11'),
+(6, 1, 3, '2026-02-26 10:17:11'),
+(7, 6, 3, '2026-02-26 10:17:11'),
+(8, 2, 4, '2026-02-26 10:17:11'),
+(9, 2, 5, '2026-02-26 10:17:11'),
+(10, 3, 7, '2026-02-26 10:17:11'),
+(11, 4, 8, '2026-02-26 10:17:11'),
+(12, 4, 9, '2026-02-26 10:17:11'),
+(13, 4, 10, '2026-02-26 10:17:11'),
+(14, 5, 11, '2026-02-26 10:17:11'),
+(15, 6, 13, '2026-02-26 10:17:11'),
+(16, 7, 14, '2026-02-26 10:17:11'),
+(17, 7, 15, '2026-02-26 10:17:11'),
+(18, 8, 16, '2026-02-26 10:17:11'),
+(19, 9, 17, '2026-02-26 10:17:11'),
+(20, 10, 19, '2026-02-26 10:17:11');
 
 --
 -- Indexek a kiírt táblákhoz
@@ -181,7 +183,8 @@ ALTER TABLE `helyszin`
 -- A tábla indexei `jelentkezes`
 --
 ALTER TABLE `jelentkezes`
-  ADD PRIMARY KEY (`Fogadoora_Id`,`Bejelentkezo_Id`),
+  ADD PRIMARY KEY (`Id`),
+  ADD UNIQUE KEY `unique_jelentkezes` (`Fogadoora_Id`,`Bejelentkezo_Id`),
   ADD KEY `fk_jelentkezes_bejelentkezo` (`Bejelentkezo_Id`);
 
 --
@@ -205,6 +208,12 @@ ALTER TABLE `fogadoora`
 --
 ALTER TABLE `helyszin`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT a táblához `jelentkezes`
+--
+ALTER TABLE `jelentkezes`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Megkötések a kiírt táblákhoz

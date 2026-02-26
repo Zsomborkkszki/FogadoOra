@@ -7,6 +7,9 @@ namespace FogadoOra.Controllers
     {
 
         private string connectionString = "server=localhost;user=root;password=;database=fogadoora";
+        /// <summary>
+        /// Az összes felhasználó adatainak lekérdezése és megjelenítése a "bejelentkezo" táblából.
+        /// </summary>
         public void AllUser()
         {
             using (MySqlConnection connector = new MySqlConnection(connectionString))
@@ -24,6 +27,10 @@ namespace FogadoOra.Controllers
                 }
             }
         }
+        /// <summary>
+        /// Felhasználói bejelentkezés, ahol a felhasználó megadja a nevét és e-mail címét, majd ellenőrzésre kerülnek a "bejelentkezo" táblában. 
+        /// Sikeres bejelentkezés esetén üdvözlő üzenet jelenik meg, ellenkező esetben hibaüzenet.
+        /// </summary>
         public void Login()
         {
             using (MySqlConnection connector = new MySqlConnection(connectionString))
@@ -51,6 +58,9 @@ namespace FogadoOra.Controllers
                 }
             }
         }
+        /// <summary>
+        /// Új felhasználó létrehozása, ahol a felhasználó megadja a nevét, e-mail címét és telefonszámát, majd ezek az adatok beszúródnak a "bejelentkezo" táblába.
+        /// </summary>
         public void NewUser()
         {
             using (MySqlConnection connector = new MySqlConnection(connectionString))
@@ -75,7 +85,9 @@ namespace FogadoOra.Controllers
                 Console.WriteLine("Sikeres új felhasználó létrehozása");
             } 
         }
-
+        /// <summary>
+        /// Felhasználói fiók törlése, ahol a felhasználó megadja a nevét és e-mail címét, majd ezek alapján törlésre kerül a "bejelentkezo" táblából.
+        /// </summary>
         public void DeleteUser()
         {
             using (MySqlConnection connector = new MySqlConnection(connectionString))
@@ -105,7 +117,9 @@ namespace FogadoOra.Controllers
                 }
             }
         }
-
+        /// <summary>
+        /// Felhasználói adatok módosítása, ahol a felhasználó megadja a nevét és jelenlegi e-mail címét azonosítás céljából, majd új e-mail címet és telefonszámot ad meg, amelyek alapján frissítésre kerülnek a "bejelentkezo" táblában.
+        /// </summary>
         public void UpdateUser()
         {
             using (MySqlConnection connector = new MySqlConnection(connectionString))

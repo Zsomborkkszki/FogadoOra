@@ -13,6 +13,7 @@ namespace FogadoOra.Controllers
         /// </summary>
         public void AllUser()
         {
+            List<Bejelentkezo> users = new List<Bejelentkezo>();
             using (MySqlConnection connector = new MySqlConnection(connectionString))
             {
                 Console.WriteLine("Csatlakozás a MySql adatbázishoz...");
@@ -23,9 +24,11 @@ namespace FogadoOra.Controllers
                 {
                     while (reader.Read())
                     {
-                        Console.WriteLine($"Név: {reader["Name"]}, E-mail: {reader["Email"]}, Telefonszám: {reader["Mobile"]}");
+                        users.Add(new Bejelentkezo((int)reader["Id"], (string)reader["Name"], (string)reader["Email"], (string)reader["Mobile"]));
                     }
+                    
                 }
+                
             }
         }
         /// <summary>

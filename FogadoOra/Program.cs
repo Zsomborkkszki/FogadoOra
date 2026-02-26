@@ -9,7 +9,12 @@ namespace FogadoOra
     {
         static void Main(string[] args)
         {
-            new FogadoOraController().UpdateFogadoOra("2", "Helyszin_Id", "2");
+            List<FogadoOraModel> orak = new FogadoOraController().GetTodayFogadoOras();
+
+            foreach (var item in orak)
+            {
+                Console.WriteLine(item.Id);
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using FogadoOra.Controllers;
 using FogadoOra.Models;
+using FogadoOra.View;
 using System;
 using System.Collections.Generic;
 
@@ -9,7 +10,7 @@ namespace FogadoOra
     {
         public static void Main(string[] args)
         {
-
+            new Megjelenites().FoMegjelenites(); 
         }
     }
 }

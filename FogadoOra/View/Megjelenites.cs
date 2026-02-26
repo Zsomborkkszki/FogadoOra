@@ -1,4 +1,5 @@
-﻿using FogadoOra.Models;
+﻿using FogadoOra.Controllers;
+using FogadoOra.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +37,7 @@ namespace FogadoOra.View
                 {
                     if (i == current_point)
                     {
-                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine(fuggvenyNevek[i]);
                         Console.ForegroundColor = ConsoleColor.White;
                     }
@@ -69,6 +70,11 @@ namespace FogadoOra.View
                         {
                             current_point++;
                         }
+                        break;
+
+                    case ConsoleKey.Enter:
+                        fuggvenyek[current_point]();
+                        Console.ReadLine();
                         break;
                     default:
                         break;
@@ -103,7 +109,20 @@ namespace FogadoOra.View
 
         public void FogadoOraMegjelenites()
         {
+            FogadoOraController controller = new FogadoOraController();
+            List<FogadoOraModel> fogadoOrak = controller.GetAllFogadoOra();
+            Console.Clear();
+            // 1. Fejléc kiírása
+            Console.WriteLine($"| {"Helyszín ID",-15} | {"Kezdés",-22} | {"Hossz",-10} |");
 
+            // 2. Elválasztó vonal rajzolása
+            Console.WriteLine(new string('-', 55));
+
+            // 3. Adatok kiírása soronként
+            foreach (FogadoOraModel ora in fogadoOrak)
+            {
+                Console.WriteLine($"| {ora.PlaceId,-15} | {ora.Start,-22} | {ora.Lenght,-10} |");
+            }
         }
 
         public void UserMegjelenites()

@@ -10,17 +10,6 @@ namespace FogadoOra.Controllers
 {
     internal class FogadoOraController
     {
-        MySqlConnection DataBaseConnection()
-        {
-            string connectionString = "server=localhost;database=fogadoora;user=root;password=;";
-
-            using (MySqlConnection conn = new MySqlConnection(connectionString))
-            {
-                return conn;
-                //Console.WriteLine("Sikeres kapcsolódás!");
-            }
-        }
-
         public List<FogadoOraModel> GetAllFogadoOra()
         {
             string connectionString = "server=localhost;database=fogadoora;user=root;password=;";

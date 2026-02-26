@@ -9,7 +9,7 @@ namespace FogadoOra
     {
         static void Main(string[] args)
         {
-            new FogadoOraController().GetAllFogadoOra();
+
         }
     }
 }

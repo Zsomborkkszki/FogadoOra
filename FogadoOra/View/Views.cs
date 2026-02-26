@@ -20,7 +20,7 @@ namespace FogadoOra.View
             Console.WriteLine("Fogadó órák");
             foreach(FogadoOraModel ora in orak)
             {
-                Console.WriteLine(ora.Place);
+                Console.WriteLine(ora.PlaceId);
                 Console.WriteLine(ora.Start);
                 Console.WriteLine(ora.Lenght);
 

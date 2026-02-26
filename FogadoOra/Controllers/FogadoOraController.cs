@@ -14,26 +14,34 @@ namespace FogadoOra.Controllers
         {
             string connectionString = "server=localhost;database=fogadoora;user=root;password=;";
 
+            List<FogadoOraModel> fogadoorak = new List<FogadoOraModel>();
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
+                string query = "SELECT * FROM fogadoora";
+
                 conn.Open();
-                Console.WriteLine("Sikeres kapcsolódás!");
+
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        FogadoOraModel fogadoOra = new FogadoOraModel
+                        {
+                            Id = reader.GetInt32("Id"),
+                            PlaceId = reader.GetInt32("Helyszin_Id"),
+                            Start = reader.GetDateTime("Start"),
+                            Lenght = reader.GetInt32("Lenght"),
+                        };
+
+                        fogadoorak.Add(fogadoOra);
+                    }
+                }
+
                 conn.Close();
             }
 
-            return new List<FogadoOraModel>()
-            {
-                new FogadoOraModel("101-es terem", DateTime.Parse("2025-01-01"), 70),
-                new FogadoOraModel("101-es terem", DateTime.Parse("2025-01-01"), 70),
-                new FogadoOraModel("101-es terem", DateTime.Parse("2025-01-01"), 70),
-                new FogadoOraModel("101-es terem", DateTime.Parse("2025-01-01"), 70),
-                new FogadoOraModel("101-es terem", DateTime.Parse("2025-01-01"), 70),
-                new FogadoOraModel("101-es terem", DateTime.Parse("2025-01-01"), 70),
-                new FogadoOraModel("101-es terem", DateTime.Parse("2025-01-01"), 70),
-                new FogadoOraModel("101-es terem", DateTime.Parse("2025-01-01"), 70),
-                new FogadoOraModel("101-es terem", DateTime.Parse("2025-01-01"), 70),
-                new FogadoOraModel("101-es terem", DateTime.Parse("2025-01-01"), 70),
-            };
+            return fogadoorak;
         }
 
         FogadoOraModel GetFogadoOraByDate()

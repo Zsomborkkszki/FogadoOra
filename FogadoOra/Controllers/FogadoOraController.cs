@@ -1,5 +1,6 @@
 ﻿using FogadoOra.Models;
 using MySql.Data.MySqlClient;
+using Mysqlx.Resultset;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,10 +45,38 @@ namespace FogadoOra.Controllers
             return fogadoorak;
         }
 
-        FogadoOraModel GetFogadoOraByDate()
+        public List<FogadoOraModel> GetFogadoOraByDate(DateTime date)
         {
+            string connectionString = "server=localhost;database=fogadoora;user=root;password=;";
+            List<FogadoOraModel> fogadoorak = new List<FogadoOraModel>();
 
-            return new FogadoOraModel();
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                string query = "SELECT * FROM fogadoora WHERE DATE(Start) = @date";
+
+                conn.Open();
+
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@date", date.Date);
+
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            fogadoorak.Add(new FogadoOraModel
+                            {
+                                Id = reader.GetInt32("Id"),
+                                PlaceId = reader.GetInt32("Helyszin_Id"),
+                                Start = reader.GetDateTime("Start"),
+                                Lenght = reader.GetInt32("Lenght"),
+                            });
+                        }
+                    }
+                }
+            }
+
+            return fogadoorak;
         }
 
         List<FogadoOraModel> GetTodayFogadoOras()

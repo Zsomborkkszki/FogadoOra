@@ -127,7 +127,7 @@ namespace FogadoOra.View
     
     "Óra megjelenítése Dátum alapján",
     "Kiiratás a mai napit",
-    "Id alapján a mai",
+    "Saját fogadóórák",
     "Fogadóórára jelentkezés",
     "Beállítások"
 };

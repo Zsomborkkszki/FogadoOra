@@ -42,7 +42,7 @@ namespace FogadoOra
                 }
                 else
                 {
-                    Console.WriteLine(user.Id);
+                    //Console.WriteLine(user.Id);
 
                     display.GetCurrentUser(user);
                     display.FoMegjelenites();

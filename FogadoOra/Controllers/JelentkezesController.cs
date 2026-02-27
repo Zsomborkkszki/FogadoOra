@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using FogadoOra.Models;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,28 @@ namespace FogadoOra.Controllers
                 }
 
                 conn.Close();
+            }
+        }
+
+        public void JelentkezesTorlese(int fogadoOraId, int userId)
+        {
+            string connectionString = "server=localhost;database=fogadoora;user=root;password=;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                string query = @"DELETE FROM jelentkezes 
+                         WHERE Fogadoora_Id = @fogadoOraId 
+                           AND Bejelentkezo_Id = @userId;";
+
+                conn.Open();
+
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@fogadoOraId", fogadoOraId);
+                    cmd.Parameters.AddWithValue("@userId", userId);
+
+                    cmd.ExecuteNonQuery();
+                }
             }
         }
     }

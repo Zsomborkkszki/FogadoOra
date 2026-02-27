@@ -10,6 +10,12 @@ namespace FogadoOra.View
 {
     internal class Megjelenites
     {
+        Bejelentkezo currentUser;
+
+        public void GetCurrentUser(Bejelentkezo givenUser)
+        {
+            currentUser = givenUser;
+        }
 
         public void Regisztracio_Bejelentkezes()
         {
@@ -233,9 +239,9 @@ namespace FogadoOra.View
 
         public void IdalapjanOra()
         {
-            Console.WriteLine("Adjon meg egy Id-t: ");  //majd sztm máshog lesz
+            Console.WriteLine(currentUser.Id);
             FogadoOraController controller = new FogadoOraController();
-            List<FogadoOraModel> fogadoOrak = controller.GetAllFogadoOraOfUser(int.Parse(Console.ReadLine()));
+            List<FogadoOraModel> fogadoOrak = controller.GetAllFogadoOraOfUser(currentUser.Id);
             Kiir(fogadoOrak);
         }
 

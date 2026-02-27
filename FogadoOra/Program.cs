@@ -10,7 +10,16 @@ namespace FogadoOra
     {
         public static void Main(string[] args)
         {
+            Bejelentkezo user = null;
 
+            if (user == null) 
+            {
+
+            }
+            else
+            {
+
+            }
         }
     }
 }

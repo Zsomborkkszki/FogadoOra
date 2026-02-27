@@ -10,7 +10,7 @@ namespace FogadoOra
     {
         public static void Main(string[] args)
         {
-            new Megjelenites().Regisztracio_Bejelentkezes();
+
         }
     }
 }

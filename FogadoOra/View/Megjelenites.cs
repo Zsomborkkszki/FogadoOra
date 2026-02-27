@@ -16,16 +16,17 @@ namespace FogadoOra.View
             bool bejelentkezve = false;
             int current_point = 0;
             bool fut = true;
-            Action[] fuggvenyek = { FogadoOraMegjelenites, OraMegjelenitesDatum, OraTorles,  UserModositas, UserTorles, Beallitasok };
+            Action[] fuggvenyek = { FogadoOraMegjelenites, OraMegjelenitesDatumesOra, OramegjelenitesDatum, KiirAMaiNapra, Beallitasok };
 
             string[] fuggvenyNevek =
 {
     "Fogadóóra megjelenítés",
-    "Óra megjelenites Dátum alapján",
-    "Óra törlés",
+    "Óra megjelenites Dátum és óra alapján",
     
-    "Felhasználó módosítás",
-    "Felhasználó törlés",
+    
+    "Óra megjelenítése Dátum alapján",
+    "Kiiratás a mai napit",
+    
     "Beállítások"
 };
 
@@ -75,6 +76,7 @@ namespace FogadoOra.View
                     case ConsoleKey.Enter:
                         Console.Clear();
                         fuggvenyek[current_point]();
+                        Console.WriteLine("Enterre tovább...");
                         Console.ReadLine();
                         break;
                     default:
@@ -92,17 +94,7 @@ namespace FogadoOra.View
         }
 
 
-        public void MegjelenitOra(List<FogadoOraModel> orak)
-        {
-            Console.WriteLine("Fogadó órák");
-            foreach (FogadoOraModel ora in orak)
-            {
-                Console.WriteLine(ora.Start);
-                Console.WriteLine(ora.Lenght);
-
-            }
-        }
-
+      
         public void Beallitasok()
         {
 
@@ -113,26 +105,42 @@ namespace FogadoOra.View
             FogadoOraController controller = new FogadoOraController();
             List<FogadoOraModel> fogadoOrak = controller.GetAllFogadoOra();
             Console.Clear();
-            // 1. Fejléc kiírása
-            Console.WriteLine($"| {"Helyszín ID",-15} | {"Kezdés",-22} | {"Hossz",-10} |");
-
-            // 2. Elválasztó vonal rajzolása
-            Console.WriteLine(new string('-', 56));
-
-            // 3. Adatok kiírása soronként
-            foreach (FogadoOraModel ora in fogadoOrak)
-            {
-                Console.WriteLine($"| {ora.Place,-15} | {ora.Start,-22} | {ora.Lenght,-10} |");
-            }
-            Console.WriteLine(new string('-', 56));
+            Kiir(fogadoOrak);
         }
 
-        public void OraMegjelenitesDatum()
+        public void OraMegjelenitesDatumesOra()
         {
 
-            Console.WriteLine("Adjon meg egy dátumot (2026-01-01 formátumban): ");
+            Console.WriteLine("Adjon meg egy dátumot (2026-01-01 00:00:00 formátumban): ");
             FogadoOraController controller = new FogadoOraController();
             List<FogadoOraModel> fogadoOrak = controller.GetFogadoOraByDate(DateTime.Parse(Console.ReadLine()));
+            Kiir(fogadoOrak);
+
+        }
+
+
+        public void OramegjelenitesDatum()
+        {
+            Console.WriteLine("Adjon meg egy dátumot (2026-01-01 formátumban): ");
+            FogadoOraController controller = new FogadoOraController();
+            List<FogadoOraModel> fogadoOrak = controller.GetFogadoOrakOfDay(Console.ReadLine());
+            Kiir(fogadoOrak);
+        }
+
+        public void KiirAMaiNapra()
+        {
+                                                                                                                                                                                                     
+            FogadoOraController controller = new FogadoOraController();
+            List<FogadoOraModel> fogadoOrak = controller.GetTodayFogadoOras();
+            Kiir(fogadoOrak);
+            
+           
+        }
+
+
+
+        public void Kiir(List<FogadoOraModel> fogadoOrak)
+        {
             Console.WriteLine($"| {"Helyszín ID",-15} | {"Kezdés",-22} | {"Hossz",-10} |");
 
             // 2. Elválasztó vonal rajzolása
@@ -144,30 +152,11 @@ namespace FogadoOra.View
                 Console.WriteLine($"| {ora.Place,-15} | {ora.Start,-22} | {ora.Lenght,-10} |");
             }
             Console.WriteLine(new string('-', 56));
-
         }
 
 
-        public void UserModositas()
-        {
-
-        }
-
-        public void UserTorles()
-        {
-
-        }
 
 
-        public void OraTorles()
-        {
-
-        }
-
-
-        public void OraModositas()
-        {
-
-        }
+        
     }
 }

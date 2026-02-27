@@ -72,22 +72,24 @@ namespace FogadoOra.View
             }
         }
 
-        static void Bejelentkezes()
+        public void Bejelentkezes()
         {
-            Console.WriteLine("Bejelentkezés funkció (ide írhatod a saját logikádat)");
-            // Ide írd a bejelentkezés logikát
+            Bejelentkezo user = new UserController().Login();
+            if (user != null) {
+                FoMegjelenites();
+            }
         }
 
-        static void Regisztracio()
+        public void Regisztracio()
         {
-            Console.WriteLine("Regisztráció funkció (ide írhatod a saját logikádat)");
-            // Ide írd a regisztráció logikát
+            Console.WriteLine("Regisztráció");
+
+            new UserController().NewUser();
         }
 
-        static void Kilepes()
+        public void Kilepes()
         {
-            Console.WriteLine("Kilépés...");
-            // Itt lehet valami tisztítás vagy kilépés logika
+          
         }
         
 

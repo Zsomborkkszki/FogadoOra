@@ -10,10 +10,102 @@ namespace FogadoOra.View
 {
     internal class Megjelenites
     {
+
+        public void Regisztracio_Bejelentkezes()
+        {
+            int current_point = 0;
+            bool fut = true;
+            string[] menuNevek = { "Bejelentkezés", "Regisztráció", "Kilépés" };
+            Action[] menuFunkciok = { Bejelentkezes, Regisztracio, Kilepes };
+
+            while (fut)
+            {
+                Console.Clear();
+                Console.WriteLine("---- főmenü ----");
+                for (int i = 0; i < menuNevek.Length; i++)
+                {
+                    if (i == current_point)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine(menuNevek[i]);
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
+                    else
+                    {
+                        Console.WriteLine(menuNevek[i]);
+                    }
+                }
+
+                var billentyu = Console.ReadKey(true).Key;
+
+                switch (billentyu)
+                {
+                    case ConsoleKey.UpArrow:
+                    case ConsoleKey.W:
+                        if (current_point == 0)
+                            current_point = menuNevek.Length - 1;
+                        else
+                            current_point--;
+                        break;
+
+                    case ConsoleKey.DownArrow:
+                    case ConsoleKey.S:
+                        if (current_point == menuNevek.Length - 1)
+                            current_point = 0;
+                        else
+                            current_point++;
+                        break;
+
+                    case ConsoleKey.Enter:
+                        Console.Clear();
+                        menuFunkciok[current_point]();
+                        if (current_point == 2) // Kilépés
+                            fut = false;
+                        Console.WriteLine("Nyomj Enter-t a folytatáshoz...");
+                        Console.ReadLine();
+                        Console.Clear();
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        }
+
+        static void Bejelentkezes()
+        {
+            Console.WriteLine("Bejelentkezés funkció (ide írhatod a saját logikádat)");
+            // Ide írd a bejelentkezés logikát
+        }
+
+        static void Regisztracio()
+        {
+            Console.WriteLine("Regisztráció funkció (ide írhatod a saját logikádat)");
+            // Ide írd a regisztráció logikát
+        }
+
+        static void Kilepes()
+        {
+            Console.WriteLine("Kilépés...");
+            // Itt lehet valami tisztítás vagy kilépés logika
+        }
+        
+
+
+
+
+
+
+
+
+
+
+
+
         public void FoMegjelenites()
         {
 
-            bool bejelentkezve = false;
+           
             int current_point = 0;
             bool fut = true;
             Action[] fuggvenyek = { FogadoOraMegjelenites, OraMegjelenitesDatumesOra, OramegjelenitesDatum, KiirAMaiNapra, IdalapjanOra,Beallitasok };
@@ -144,6 +236,9 @@ namespace FogadoOra.View
             List<FogadoOraModel> fogadoOrak = controller.GetAllFogadoOraOfUser(int.Parse(Console.ReadLine()));
             Kiir(fogadoOrak);
         }
+
+
+
 
 
 

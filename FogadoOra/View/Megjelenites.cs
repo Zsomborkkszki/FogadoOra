@@ -280,7 +280,7 @@ namespace FogadoOra.View
 
         public void JelentkezesTorlese()
         {
-            FogadoOraMegjelenites();
+            IdAlapjanFogadoora();
             Console.WriteLine("Adjon meg egy id-t!");
             int id = int.Parse(Console.ReadLine());
             new JelentkezesController().JelentkezesTorlese(id, currentUser.Id);

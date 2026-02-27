@@ -260,19 +260,20 @@ namespace FogadoOra.View
 
         public void Kiir(List<FogadoOraModel> fogadoOrak)
         {
-            Console.WriteLine($"| {"Helyszín ID",-15} | {"Kezdés",-22} | {"Hossz",-10} |");
+            // Fejléc, most az ID-t is tartalmazza
+            Console.WriteLine($"| {"ID",-5} | {"Helyszín",-15} | {"Kezdés",-22} | {"Hossz",-10} |");
 
-            // 2. Elválasztó vonal rajzolása
-            Console.WriteLine(new string('-', 56));
+            // Elválasztó vonal
+            Console.WriteLine(new string('-', 70));
 
-            // 3. Adatok kiírása soronként
+            // Adatok kiírása
             foreach (FogadoOraModel ora in fogadoOrak)
             {
-                Console.WriteLine($"| {ora.Place,-15} | {ora.Start,-22} | {ora.Lenght,-10} |");
+                Console.WriteLine($"| {ora.Id,-5} | {ora.Place,-15} | {ora.Start,-22} | {ora.Lenght,-10} |");
             }
-            Console.WriteLine(new string('-', 56));
-        }
 
+            Console.WriteLine(new string('-', 70));
+        }
 
 
 

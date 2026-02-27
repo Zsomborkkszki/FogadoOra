@@ -116,7 +116,7 @@ namespace FogadoOra.View
            
             int current_point = 0;
             bool fut = true;
-            Action[] fuggvenyek = { FogadoOraMegjelenites, OraMegjelenitesDatumesOra, OramegjelenitesDatum, KiirAMaiNapra, IdalapjanOra, IdAlapjanFogadoora
+            Action[] fuggvenyek = { FogadoOraMegjelenites, OraMegjelenitesDatumesOra, OramegjelenitesDatum, KiirAMaiNapra, IdalapjanOra, IdAlapjanFogadoora, JelentkezesTorlese
                     ,Beallitasok };
 
             string[] fuggvenyNevek =
@@ -129,6 +129,7 @@ namespace FogadoOra.View
     "Kiiratás a mai napit",
     "Saját fogadóórák",
     "Fogadóórára jelentkezés",
+    "Jelentkezés törése",
     "Beállítások"
 };
 
@@ -277,9 +278,12 @@ namespace FogadoOra.View
 
 
 
-        public void IdAlapjanFogadoOra()
+        public void JelentkezesTorlese()
         {
-
+            FogadoOraMegjelenites();
+            Console.WriteLine("Adjon meg egy id-t!");
+            int id = int.Parse(Console.ReadLine());
+            new JelentkezesController().JelentkezesTorlese(id, currentUser.Id);
         }
     }
 }

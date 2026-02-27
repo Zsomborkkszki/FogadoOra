@@ -116,7 +116,8 @@ namespace FogadoOra.View
            
             int current_point = 0;
             bool fut = true;
-            Action[] fuggvenyek = { FogadoOraMegjelenites, OraMegjelenitesDatumesOra, OramegjelenitesDatum, KiirAMaiNapra, IdalapjanOra,Beallitasok };
+            Action[] fuggvenyek = { FogadoOraMegjelenites, OraMegjelenitesDatumesOra, OramegjelenitesDatum, KiirAMaiNapra, IdalapjanOra, IdAlapjanFogadoora
+                    ,Beallitasok };
 
             string[] fuggvenyNevek =
 {
@@ -127,6 +128,7 @@ namespace FogadoOra.View
     "Óra megjelenítése Dátum alapján",
     "Kiiratás a mai napit",
     "Id alapján a mai",
+    "Fogadóórára jelentkezés",
     "Beállítások"
 };
 
@@ -193,8 +195,14 @@ namespace FogadoOra.View
             }
         }
 
+        public void IdAlapjanFogadoora()
+        {
+            FogadoOraMegjelenites();
+            Console.WriteLine("Adjon meg egy id-t!");
+            int id=int.Parse(Console.ReadLine());
+            new JelentkezesController().JelentkezesFogadoOrara(id, currentUser.Id);
+        }
 
-      
         public void Beallitasok()
         {
 
@@ -268,6 +276,9 @@ namespace FogadoOra.View
 
 
 
-        
+        public void IdAlapjanFogadoOra()
+        {
+
+        }
     }
 }

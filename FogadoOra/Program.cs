@@ -5,19 +5,27 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
+using System.Security.Cryptography.X509Certificates;
 
 namespace FogadoOra
 {
     internal class Program
     {
+        static Megjelenites display = new Megjelenites();
+
+        static Bejelentkezo user = null;
+
         public static void Main(string[] args)
         {
-            Megjelenites display = new Megjelenites();
+            UserCheck();
+        }
 
-            Bejelentkezo user = null;
-
+        public static void UserCheck()
+        {
             while (true)
             {
+                display.GetCurrentUser(user);
+
                 if (user == null)
                 {
                     Console.Clear();
@@ -43,11 +51,16 @@ namespace FogadoOra
                 else
                 {
                     //Console.WriteLine(user.Id);
-
-                    display.GetCurrentUser(user);
                     display.FoMegjelenites();
                 }
             }
+        }
+
+        public static void ClearCurrentUser()
+        {
+            user = null;
+            display.GetCurrentUser(user);
+            Console.WriteLine("user set to null");
         }
     }
 }

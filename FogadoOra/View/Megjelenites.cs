@@ -289,7 +289,8 @@ namespace FogadoOra.View
 
         public void Kijelentkezes()
         {
-
+            Program.ClearCurrentUser();
+            Program.UserCheck();
         }
     }
 }

@@ -186,5 +186,108 @@ namespace FogadoOra.Controllers
 
             return fogadoorak;
         }
+
+        public void CreateFogadoOra(int placeId, string start, int lenght)
+        {
+            string connectionString = "server=localhost;database=fogadoora;user=root;password=;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                string query = @"
+            INSERT INTO fogadoora (Id, Helyszin_Id, Start, Lenght)
+            VALUES (NULL, @placeId, @start, @lenght);";
+
+                conn.Open();
+
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@placeId", placeId);
+                    cmd.Parameters.AddWithValue("@start", start);
+                    cmd.Parameters.AddWithValue("@lenght", lenght);
+
+                    cmd.ExecuteNonQuery();
+                }
+
+                conn.Close();
+            }
+        }
+
+        public void UpdateFogadoOra(string id)
+        {
+            Console.Clear();
+
+            Console.Write(
+                "Válasszon szerkesztendő Értéket:\n" +
+                "1. Helyszin_Id\n" +
+                "2. Kezdési időpont\n" +
+                "3. Hossz\n\n--> "
+            );
+
+            string valasztas = Console.ReadLine();
+            string valtoztatni = "";
+
+            if (valasztas == "1")
+            {
+                valtoztatni = "Helyszin_Id";
+            }
+            else if (valasztas == "2")
+            {
+                valtoztatni = "Start";
+            }
+            else if (valasztas == "3")
+            {
+                valtoztatni = "Lenght";
+            }
+            else
+            {
+                Console.WriteLine("Helytelen paraméter");
+                Console.ReadLine();
+                Console.Clear();
+                new Megjelenites().FoMegjelenites();
+                return;
+            }
+
+            Console.Write("Új érték --> ");
+            string ujErtek = Console.ReadLine();
+
+            string connectionString = "server=localhost;database=fogadoora;user=root;password=;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                string query = $"UPDATE fogadoora SET {valtoztatni} = @ujErtek WHERE Id = @Id";
+
+                conn.Open();
+
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Id", id);
+                    cmd.Parameters.AddWithValue("@ujErtek", ujErtek);
+
+                    cmd.ExecuteNonQuery();
+                }
+
+                conn.Close();
+            }
+        }
+
+        public void DeleteFogadoOra(int id)
+        {
+            string connectionString = "server=localhost;database=fogadoora;user=root;password=;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                string query = @"DELETE FROM fogadoora WHERE Id = @Id";
+
+                conn.Open();
+
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Id", id);
+                    cmd.ExecuteNonQuery();
+                }
+
+                conn.Close();
+            }
+        }
     }
 }

@@ -111,7 +111,7 @@ namespace FogadoOra.Controllers
                 }
                 if (valasz.ToLower() == "i")
                 {
-                    MySqlCommand command = new MySqlCommand($"DELETE FROM bejelentkezo WHERE Id = {id}", connector);
+                    MySqlCommand command = new MySqlCommand($"DELETE FROM bejelentkezo WHERE Id = {id};", connector);
                     command.ExecuteNonQuery();
                 }
                 else

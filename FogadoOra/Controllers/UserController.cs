@@ -93,7 +93,7 @@ namespace FogadoOra.Controllers
             } 
         }
         /// <summary>
-        /// Felhasználói fiók törlése, ahol a felhasználó megadja a nevét és e-mail címét, majd ezek alapján törlésre kerül a "bejelentkezo" táblából.
+        /// A felhasználó törlése Id alapján.
         /// </summary>
         public void DeleteUser(int id)
         {
@@ -102,22 +102,11 @@ namespace FogadoOra.Controllers
                 Console.WriteLine("Csatlakozás a MySql adatbázishoz...");
                 connector.Open();
 
-                Console.WriteLine("Biztos törölni akarod a fiókod? (i/n)");
-                string valasz = Console.ReadLine();
-                if (valasz.ToLower() != "n")
-                {
-                    Console.WriteLine("Törlés megszakítva.");
-                    return;
-                }
-                if (valasz.ToLower() == "i")
-                {
-                    MySqlCommand command = new MySqlCommand($"DELETE FROM bejelentkezo WHERE Id = '{id}';", connector);
+                
+                    MySqlCommand command = new MySqlCommand($"DELETE FROM `bejelentkezo` WHERE `bejelentkezo`.`Id` = @Id;", connector);
+                    command.Parameters.AddWithValue("@Id", id);
                     command.ExecuteNonQuery();
-                }
-                else
-                {
-                    Console.WriteLine("Érvénytelen válasz. Törlés megszakítva.");
-                }
+                
             }
         }
         /// <summary>

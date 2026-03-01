@@ -28,24 +28,85 @@ namespace FogadoOra
 
                 if (user == null)
                 {
-                    Console.Clear();
-                    Console.WriteLine("1. Regisztráció\n2. Bejelentkezés\n3. Kilépés");
-                    string inp = Console.ReadLine();
+                    int current_point = 0;
+                    bool megy = true;
 
-                    switch (inp)
+                    string[] menuNevek = { "Regisztráció", "Bejelentkezés", "Kilépés" };
+
+                    while (megy)
                     {
-                        case "1":
-                            new UserController().NewUser();
-                            Console.WriteLine("Enterrel tovább ");
-                            Console.ReadLine();
-                            break;
-                        case "2":
-                            user = new UserController().Login();
-                            Console.WriteLine("Enterrel tovább ");
-                            Console.ReadLine();
-                            break;
-                        case "3":
-                            break;
+                        Console.Clear();
+                        
+                        Console.WriteLine("---- Főmenü ----");
+
+                        for (int i = 0; i < menuNevek.Length; i++)
+                        {
+                            if (i == current_point)
+                            {
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine(menuNevek[i]);
+                                Console.ForegroundColor = ConsoleColor.White;
+                            }
+                            else
+                            {
+                                Console.WriteLine(menuNevek[i]);
+                            }
+                        }
+
+                        var billentyu = Console.ReadKey(true).Key;
+
+                        switch (billentyu)
+                        {
+                            case ConsoleKey.UpArrow:
+                            case ConsoleKey.W:
+                                if (current_point == 0)
+                                    current_point = menuNevek.Length - 1;
+                                else
+                                    current_point--;
+                                break;
+
+                            case ConsoleKey.DownArrow:
+                            case ConsoleKey.S:
+                                if (current_point == menuNevek.Length - 1)
+                                    current_point = 0;
+                                else
+                                    current_point++;
+                                break;
+
+                            case ConsoleKey.Enter:
+                                Console.Clear();
+
+                                switch (current_point)
+                                {
+                                    case 0: // Regisztráció
+                                        new UserController().NewUser();
+                                        Console.WriteLine("Enterrel tovább ");
+                                        Console.ReadLine();
+                                        break;
+
+                                    case 1: // Bejelentkezés
+                                        user = new UserController().Login();
+
+                                        if (user != null)
+                                        {
+                                            megy = false;
+                                            Console.Clear();
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Sikertelen bejelentkezés!");
+                                            Console.WriteLine("Enterrel tovább ");
+                                            Console.ReadLine();
+                                        }
+                                        break;
+
+                                    case 2: // Kilépés
+                                        megy = false;
+                                        break;
+                                }
+
+                                break;
+                        }
                     }
                 }
                 else

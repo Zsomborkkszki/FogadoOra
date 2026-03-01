@@ -1,5 +1,6 @@
 ﻿using FogadoOra.Controllers;
 using FogadoOra.Models;
+using Org.BouncyCastle.Math.EC.Multiplier;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,67 +17,8 @@ namespace FogadoOra.View
         {
             currentUser = givenUser;
         }
-
-        public void Regisztracio_Bejelentkezes()
-        {
-            int current_point = 0;
-            bool fut = true;
-            string[] menuNevek = { "Bejelentkezés", "Regisztráció", "Kilépés" };
-            Action[] menuFunkciok = { Bejelentkezes, Regisztracio, Kilepes };
-
-            while (fut)
-            {
-                Console.Clear();
-                Console.WriteLine("---- főmenü ----");
-                for (int i = 0; i < menuNevek.Length; i++)
-                {
-                    if (i == current_point)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine(menuNevek[i]);
-                        Console.ForegroundColor = ConsoleColor.White;
-                    }
-                    else
-                    {
-                        Console.WriteLine(menuNevek[i]);
-                    }
-                }
-
-                var billentyu = Console.ReadKey(true).Key;
-
-                switch (billentyu)
-                {
-                    case ConsoleKey.UpArrow:
-                    case ConsoleKey.W:
-                        if (current_point == 0)
-                            current_point = menuNevek.Length - 1;
-                        else
-                            current_point--;
-                        break;
-
-                    case ConsoleKey.DownArrow:
-                    case ConsoleKey.S:
-                        if (current_point == menuNevek.Length - 1)
-                            current_point = 0;
-                        else
-                            current_point++;
-                        break;
-
-                    case ConsoleKey.Enter:
-                        Console.Clear();
-                        menuFunkciok[current_point]();
-                        if (current_point == 2) // Kilépés
-                            fut = false;
-                        Console.WriteLine("Nyomj Enter-t a folytatáshoz...");
-                        Console.ReadLine();
-                        Console.Clear();
-                        break;
-
-                    default:
-                        break;
-                }
-            }
-        }
+        public static bool fut=true;
+      
 
         public void Bejelentkezes()
         {
@@ -97,7 +39,6 @@ namespace FogadoOra.View
         {
           
         }
-        
 
 
 
@@ -109,15 +50,15 @@ namespace FogadoOra.View
 
 
 
+     
 
         public void FoMegjelenites()
         {
 
            
             int current_point = 0;
-            bool fut = true;
-            Action[] fuggvenyek = { FogadoOraMegjelenites, OraMegjelenitesDatumesOra, OramegjelenitesDatum, KiirAMaiNapra, IdalapjanOra, IdAlapjanFogadoora, JelentkezesTorlese
-                    ,Beallitasok, Kijelentkezes };
+           
+            Action[] fuggvenyek = { FogadoOraMegjelenites, OraMegjelenitesDatumesOra, OramegjelenitesDatum, KiirAMaiNapra, IdalapjanOra, IdAlapjanFogadoora, JelentkezesTorlese,  FelhasznaloModositas,FelhasznaloTorlese                   , Kijelentkezes };
 
             string[] fuggvenyNevek =
 {
@@ -130,7 +71,9 @@ namespace FogadoOra.View
     "Saját fogadóórák",
     "Fogadóórára jelentkezés",
     "Jelentkezés törése",
-    "Beállítások",
+    "Felhasználó módosítása",
+    "Felhasználó törlése",
+
     "Kijelentkezés"
 };
 
@@ -262,19 +205,30 @@ namespace FogadoOra.View
 
         public void Kiir(List<FogadoOraModel> fogadoOrak)
         {
-            // Fejléc, most az ID-t is tartalmazza
-            Console.WriteLine($"| {"ID",-5} | {"Helyszín",-15} | {"Kezdés",-22} | {"Hossz",-10} |");
+            
 
-            // Elválasztó vonal
-            Console.WriteLine(new string('-', 70));
-
-            // Adatok kiírása
-            foreach (FogadoOraModel ora in fogadoOrak)
+            if (fogadoOrak.Count!=0)
             {
-                Console.WriteLine($"| {ora.Id,-5} | {ora.Place,-15} | {ora.Start,-22} | {ora.Lenght,-10} |");
+                // Fejléc, most az ID-t is tartalmazza
+                Console.WriteLine($"| {"ID",-5} | {"Helyszín",-15} | {"Kezdés",-22} | {"Hossz",-10} |");
+
+                // Elválasztó vonal
+                Console.WriteLine(new string('-', 70));
+                foreach (FogadoOraModel ora in fogadoOrak)
+                {
+                    Console.WriteLine($"| {ora.Id,-5} | {ora.Place,-15} | {ora.Start,-22} | {ora.Lenght,-10} |");
+                }
+
+                Console.WriteLine(new string('-', 70));
             }
 
-            Console.WriteLine(new string('-', 70));
+            else
+            {
+                Console.WriteLine("Nincs fogadóóra");
+            }
+
+            // Adatok kiírása
+           
         }
 
 
@@ -291,6 +245,22 @@ namespace FogadoOra.View
         {
             Program.ClearCurrentUser();
             Program.UserCheck();
+        }
+
+        public void FelhasznaloTorlese()
+        {
+            new UserController().DeleteUser();
+            Console.WriteLine(fut);
+            fut = false;
+            Kijelentkezes();
+        }
+
+         public void FelhasznaloModositas()
+        {
+            new UserController().UpdateUser();
+            
+            
+            
         }
     }
 }

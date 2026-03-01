@@ -286,7 +286,7 @@ namespace FogadoOra.Controllers
                     cmd.ExecuteNonQuery();
                 }
 
-                conn.Close();
+                conn.Close();//
             }
         }
     }

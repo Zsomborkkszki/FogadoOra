@@ -249,7 +249,7 @@ namespace FogadoOra.View
 
         public void FelhasznaloTorlese()
         {
-            new UserController().DeleteUser();
+            new UserController().DeleteUser(currentUser.Id);
             Console.WriteLine(fut);
             fut = false;
             Kijelentkezes();

@@ -95,32 +95,28 @@ namespace FogadoOra.Controllers
         /// <summary>
         /// Felhasználói fiók törlése, ahol a felhasználó megadja a nevét és e-mail címét, majd ezek alapján törlésre kerül a "bejelentkezo" táblából.
         /// </summary>
-        public void DeleteUser()
+        public void DeleteUser(int id)
         {
             using (MySqlConnection connector = new MySqlConnection(connectionString))
             {
                 Console.WriteLine("Csatlakozás a MySql adatbázishoz...");
                 connector.Open();
 
-                Console.WriteLine("A törölni kívánt saját fiókod neve: ");
-                string nev = Console.ReadLine();
-
-                Console.WriteLine("Kérlek, add meg az e-mail címedet a megerősítéshez: ");
-                string email = Console.ReadLine();
-
-                MySqlCommand command = new MySqlCommand("DELETE FROM bejelentkezo WHERE Name = @Name AND Email = @Email", connector);
-                command.Parameters.AddWithValue("@Name", nev);
-                command.Parameters.AddWithValue("@Email", email);
-
-                int affectedRows = command.ExecuteNonQuery();
-
-                if (affectedRows > 0)
+                Console.WriteLine("Biztos törölni akarod a fiókod? (i/n)");
+                string valasz = Console.ReadLine();
+                if (valasz.ToLower() != "n")
                 {
-                    Console.WriteLine("A fiókodat sikeresen töröltük.");
+                    Console.WriteLine("Törlés megszakítva.");
+                    return;
+                }
+                if (valasz.ToLower() == "i")
+                {
+                    MySqlCommand command = new MySqlCommand($"DELETE FROM bejelentkezo WHERE Id = {id}", connector);
+                    command.ExecuteNonQuery();
                 }
                 else
                 {
-                    Console.WriteLine("Hiba: Nem található ilyen felhasználó, vagy a megadott e-mail cím nem egyezik!");
+                    Console.WriteLine("Érvénytelen válasz. Törlés megszakítva.");
                 }
             }
         }

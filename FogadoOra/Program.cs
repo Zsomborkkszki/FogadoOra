@@ -114,6 +114,10 @@ namespace FogadoOra
                         }
                     }
                 }
+                else if(user.Name == "admin")
+                {
+                    display.Admin();
+                }
                 else
                 {
                     //Console.WriteLine(user.Id);

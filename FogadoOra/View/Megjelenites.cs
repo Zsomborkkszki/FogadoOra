@@ -201,6 +201,11 @@ namespace FogadoOra.View
         public void Admin()
         {
             Console.WriteLine("admin felület");
+            Console.WriteLine("adja meg a jelsuót");
+            if (Console.ReadLine() == "admin123")
+            {
+                Console.WriteLine("Sikeres admin belépés");
+            }
 
         }
         

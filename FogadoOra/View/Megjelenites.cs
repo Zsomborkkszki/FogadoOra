@@ -58,7 +58,7 @@ namespace FogadoOra.View
            
             int current_point = 0;
            
-            Action[] fuggvenyek = { FogadoOraMegjelenites, OraMegjelenitesDatumesOra, OramegjelenitesDatum, KiirAMaiNapra, IdalapjanOra, IdAlapjanFogadoora, JelentkezesTorlese,  FelhasznaloModositas,FelhasznaloTorlese                   , Kijelentkezes };
+            Action[] fuggvenyek = { FogadoOraMegjelenites, OraMegjelenitesDatumesOra, OramegjelenitesDatum, KiirAMaiNapra, IdalapjanOra, IdAlapjanFogadoora, FogadooraModositas, JelentkezesTorlese,  FelhasznaloModositas,FelhasznaloTorlese                   , Kijelentkezes };
 
             string[] fuggvenyNevek =
 {
@@ -70,7 +70,8 @@ namespace FogadoOra.View
     "Kiiratás a mai napit",
     "Saját fogadóórák",
     "Fogadóórára jelentkezés",
-    "Jelentkezés törése",
+    "Fogadóóra szekesztése"
+,    "Jelentkezés törése",
     "Felhasználó módosítása",
     "Felhasználó törlése",
 
@@ -197,7 +198,19 @@ namespace FogadoOra.View
             List<FogadoOraModel> fogadoOrak = controller.GetAllFogadoOraOfUser(currentUser.Id);
             Kiir(fogadoOrak);
         }
+        public void Admin()
+        {
+            Console.WriteLine("admin felület");
 
+        }
+        
+
+        public void FogadooraModositas()
+        {
+            IdalapjanOra();
+                
+            new FogadoOraController().UpdateFogadoOra(Console.ReadLine());
+        }
 
 
 

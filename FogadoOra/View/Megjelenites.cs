@@ -205,6 +205,83 @@ namespace FogadoOra.View
             if (Console.ReadLine() == "admin123")
             {
                 Console.WriteLine("Sikeres admin belépés");
+
+                string[] menupontok = { "Összes helyszín", "Új helyszín", "Helyszín módosítása" };
+
+                int current_point = 0;
+                bool megy = true;
+
+                while (megy)
+                {
+                    Console.Clear();
+                    Console.WriteLine("---- Helyszín menü ----\n");
+
+                    for (int i = 0; i < menupontok.Length; i++)
+                    {
+                        if (i == current_point)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine(menupontok[i]);
+                            Console.ForegroundColor = ConsoleColor.White;
+                        }
+                        else
+                        {
+                            Console.WriteLine(menupontok[i]);
+                        }
+                    }
+
+                    var billentyu = Console.ReadKey(true).Key;
+
+                    switch (billentyu)
+                    {
+                        case ConsoleKey.UpArrow:
+                        case ConsoleKey.W:
+                            if (current_point == 0)
+                                current_point = menupontok.Length - 1;
+                            else
+                                current_point--;
+                            break;
+
+                        case ConsoleKey.DownArrow:
+                        case ConsoleKey.S:
+                            if (current_point == menupontok.Length - 1)
+                                current_point = 0;
+                            else
+                                current_point++;
+                            break;
+
+                        case ConsoleKey.LeftArrow:
+                            megy = false;
+                            break;
+
+                        case ConsoleKey.Enter:
+                            Console.Clear();
+
+                            switch (current_point)
+                            {
+                                case 0: // Összes helyszín
+                                    new HelyszinController().AllPlace();
+                                    Console.WriteLine("\nEnterrel tovább...");
+                                    Console.ReadLine();
+                                    break;
+
+                                case 1: // Új helyszín
+                                    new HelyszinController().NewPlace();
+                                    Console.WriteLine("\nEnterrel tovább...");
+                                    Console.ReadLine();
+                                    break;
+
+                                case 2: // Helyszín módosítása
+                                    new HelyszinController().UpdatePlace();
+                                    Console.WriteLine("\nEnterrel tovább...");
+                                    Console.ReadLine();
+                                    break;
+                            }
+
+                            break;
+                    }
+                }
+
             }
 
         }

@@ -102,8 +102,7 @@ namespace FogadoOra
 
                                     case 2:
                                         new Megjelenites().Admin();
-                                        Console.WriteLine("\nEnterrel tovább ");
-                                        Console.ReadLine();
+                                        
                                         break;
 
                                     case 3: // Kilépés

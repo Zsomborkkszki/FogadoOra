@@ -58,7 +58,7 @@ namespace FogadoOra.View
            
             int current_point = 0;
            
-            Action[] fuggvenyek = { FogadoOraMegjelenites, OraMegjelenitesDatumesOra, OramegjelenitesDatum, KiirAMaiNapra, IdalapjanOra, IdAlapjanFogadoora, FogadooraModositas, FogadooraTolrese, JelentkezesTorlese,  FelhasznaloModositas,FelhasznaloTorlese                   , Kijelentkezes };
+            Action[] fuggvenyek = { FogadoOraMegjelenites, OraMegjelenitesDatumesOra, OramegjelenitesDatum, KiirAMaiNapra, IdalapjanOra, IdAlapjanFogadoora, FogadooraModositas,  JelentkezesTorlese,  FelhasznaloModositas,FelhasznaloTorlese                   , Kijelentkezes };
 
             string[] fuggvenyNevek =
 {
@@ -70,8 +70,7 @@ namespace FogadoOra.View
     "Kiiratás a mai napit",
     "Saját fogadóórák",
     "Fogadóórára jelentkezés",
-    "Fogadóóra szekesztése",
-    "Fogadóóra törlése"
+    "Fogadóóra szekesztése"
 ,    "Jelentkezés törése",
     "Felhasználó módosítása",
     "Felhasználó törlése",
@@ -207,7 +206,7 @@ namespace FogadoOra.View
             {
                 Console.WriteLine("Sikeres admin belépés");
 
-                string[] menupontok = { "Összes helyszín", "Új helyszín", "Helyszín módosítása" };
+                string[] menupontok = { "Összes helyszín", "Új helyszín", "Helyszín módosítása","Fogadóóra törlése" };
 
                 int current_point = 0;
                 bool megy = true;
@@ -277,6 +276,15 @@ namespace FogadoOra.View
                                     Console.WriteLine("\nEnterrel tovább...");
                                     Console.ReadLine();
                                     break;
+
+                                case 3:
+                                    FogadoOraMegjelenites();
+
+                                    Console.WriteLine("Adjon meg egy id-t");
+                                    new FogadoOraController().DeleteFogadoOra(int.Parse(Console.ReadLine()));
+
+
+                                    break;
                             }
 
                             break;
@@ -326,15 +334,7 @@ namespace FogadoOra.View
             // Adatok kiírása
            
         }
-        public void FogadooraTolrese()
-        {
-            FogadoOraMegjelenites();    
-
-            Console.WriteLine("Adjon meg egy id-t");
-            new FogadoOraController().DeleteFogadoOra(int.Parse(Console.ReadLine()));
-
-
-        }
+      
 
 
         public void JelentkezesTorlese()

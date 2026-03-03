@@ -201,7 +201,7 @@ namespace FogadoOra.View
         public void Admin()
         {
             Console.WriteLine("admin felület");
-            Console.WriteLine("adja meg a jelsuót");
+            Console.WriteLine("adja meg a jelszót");
             if (Console.ReadLine() == "admin123")
             {
                 Console.WriteLine("Sikeres admin belépés");
@@ -287,13 +287,21 @@ namespace FogadoOra.View
                                     break;
 
                                 case 4:
-                                    Console.WriteLine("sadjon meg egy id-t!");
+                                    Console.WriteLine("Adjon meg egy id-t!");
                                     int id=int.Parse(Console.ReadLine());
-                                    Console.WriteLine("adjon meg egy kezdési időpontot");
+                                    Console.WriteLine("Adjon meg egy kezdési időpontot");
                                     string start=Console.ReadLine();
-                                    Console.WriteLine("adja meg a hosszát az órának:");
+                                    Console.WriteLine("Adja meg a hosszát az órának:");
                                     int hossz=int.Parse(Console.ReadLine());    
                                     new FogadoOraController().CreateFogadoOra(id,start,hossz);
+                                    break;
+
+
+                                case 5:
+                                    FogadoOraMegjelenites();
+
+                                    Console.WriteLine("Adjon meg egy id-t");
+                                    new FogadoOraController().UpdateFogadoOra(Console.ReadLine());
                                     break;
                             }
 

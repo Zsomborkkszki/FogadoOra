@@ -268,7 +268,6 @@ namespace FogadoOra.Controllers
                     }
                 }
 
-                // 2️⃣ Bekérjük mit módosít
                 Console.WriteLine("1. Helyszin_Id\n2. Kezdés\n3. Hossz");
                 string valasztas = Console.ReadLine();
 
@@ -288,7 +287,6 @@ namespace FogadoOra.Controllers
                     length = int.Parse(Console.ReadLine());
                 }
 
-                // 3️⃣ Ütközés ellenőrzés (FONTOS)
                 string checkQuery = @"
                     SELECT COUNT(*) 
                     FROM fogadoora
@@ -313,7 +311,6 @@ namespace FogadoOra.Controllers
                     }
                 }
 
-                // 4️⃣ Ha nincs ütközés → update
                 string updateQuery = @"
                     UPDATE fogadoora 
                     SET Helyszin_Id = @placeId,

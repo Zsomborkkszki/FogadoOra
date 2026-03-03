@@ -212,7 +212,8 @@ namespace FogadoOra.Controllers
 
                     if (count > 0)
                     {
-                        Console.WriteLine("Ebben a teremben már van fogadóóra ebben az időpontban!");
+                        Console.WriteLine("Ebben a teremben már van fogadóóra ebben az időpontban!\nEnterrel tovább! ");
+                        Console.ReadLine();
                         return false;
                     }
                 }

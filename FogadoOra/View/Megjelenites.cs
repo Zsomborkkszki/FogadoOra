@@ -302,7 +302,7 @@ namespace FogadoOra.View
                                     FogadoOraMegjelenites();
 
                                     Console.WriteLine("Adjon meg egy id-t");
-                                    new FogadoOraController().UpdateFogadoOra(Console.ReadLine());
+                                    new FogadoOraController().UpdateFogadoOra(int.Parse(Console.ReadLine()));
                                     break;
 
                             case 6:
@@ -332,7 +332,7 @@ namespace FogadoOra.View
         {
             IdalapjanOra();
                 
-            new FogadoOraController().UpdateFogadoOra(Console.ReadLine());
+            new FogadoOraController().UpdateFogadoOra(int.Parse(Console.ReadLine()));
         }
 
 

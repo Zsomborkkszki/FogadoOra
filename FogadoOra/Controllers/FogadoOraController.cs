@@ -235,61 +235,103 @@ namespace FogadoOra.Controllers
             }
         }
 
-        public void UpdateFogadoOra(string id)
+        public void UpdateFogadoOra(int id)
         {
-            Console.Clear();
-
-            Console.Write(
-                "Válasszon szerkesztendő Értéket:\n" +
-                "1. Helyszin_Id\n" +
-                "2. Kezdési időpont\n" +
-                "3. Hossz\n\n--> "
-            );
-
-            string valasztas = Console.ReadLine();
-            string valtoztatni = "";
-
-            if (valasztas == "1")
-            {
-                valtoztatni = "Helyszin_Id";
-            }
-            else if (valasztas == "2")
-            {
-                valtoztatni = "Start";
-            }
-            else if (valasztas == "3")
-            {
-                valtoztatni = "Lenght";
-            }
-            else
-            {
-                Console.WriteLine("Helytelen paraméter");
-                Console.ReadLine();
-                Console.Clear();
-                new Megjelenites().FoMegjelenites();
-                return;
-            }
-
-            Console.Write("Új érték --> ");
-            string ujErtek = Console.ReadLine();
-
             string connectionString = "server=localhost;database=fogadoora;user=root;password=;";
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
-                string query = $"UPDATE fogadoora SET {valtoztatni} = @ujErtek WHERE Id = @Id";
-
                 conn.Open();
 
-                using (MySqlCommand cmd = new MySqlCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@Id", id);
-                    cmd.Parameters.AddWithValue("@ujErtek", ujErtek);
+                // 1️⃣ Lekérjük a jelenlegi adatokat
+                string selectQuery = "SELECT Helyszin_Id, Start, Lenght FROM fogadoora WHERE Id = @Id";
 
-                    cmd.ExecuteNonQuery();
+                int placeId;
+                DateTime start;
+                int length;
+
+                using (MySqlCommand selectCmd = new MySqlCommand(selectQuery, conn))
+                {
+                    selectCmd.Parameters.AddWithValue("@Id", id);
+
+                    using (MySqlDataReader reader = selectCmd.ExecuteReader())
+                    {
+                        if (!reader.Read())
+                        {
+                            Console.WriteLine("Nincs ilyen fogadóóra!");
+                            return;
+                        }
+
+                        placeId = reader.GetInt32("Helyszin_Id");
+                        start = reader.GetDateTime("Start");
+                        length = reader.GetInt32("Lenght");
+                    }
                 }
 
-                conn.Close();
+                // 2️⃣ Bekérjük mit módosít
+                Console.WriteLine("1. Helyszin_Id\n2. Kezdés\n3. Hossz");
+                string valasztas = Console.ReadLine();
+
+                if (valasztas == "1")
+                {
+                    Console.Write("Új helyszín ID: ");
+                    placeId = int.Parse(Console.ReadLine());
+                }
+                else if (valasztas == "2")
+                {
+                    Console.Write("Új kezdés (yyyy-MM-dd HH:mm): ");
+                    start = DateTime.Parse(Console.ReadLine());
+                }
+                else if (valasztas == "3")
+                {
+                    Console.Write("Új hossz (perc): ");
+                    length = int.Parse(Console.ReadLine());
+                }
+
+                // 3️⃣ Ütközés ellenőrzés (FONTOS)
+                string checkQuery = @"
+                    SELECT COUNT(*) 
+                    FROM fogadoora
+                    WHERE Helyszin_Id = @placeId
+                    AND Id != @Id
+                    AND Start < DATE_ADD(@start, INTERVAL @length MINUTE)
+                    AND DATE_ADD(Start, INTERVAL Lenght MINUTE) > @start";
+
+                using (MySqlCommand checkCmd = new MySqlCommand(checkQuery, conn))
+                {
+                    checkCmd.Parameters.AddWithValue("@placeId", placeId);
+                    checkCmd.Parameters.AddWithValue("@start", start);
+                    checkCmd.Parameters.AddWithValue("@length", length);
+                    checkCmd.Parameters.AddWithValue("@Id", id);
+
+                    int count = Convert.ToInt32(checkCmd.ExecuteScalar());
+
+                    if (count > 0)
+                    {
+                        Console.WriteLine("Ütközés van ebben a teremben!");
+                        return;
+                    }
+                }
+
+                // 4️⃣ Ha nincs ütközés → update
+                string updateQuery = @"
+                    UPDATE fogadoora 
+                    SET Helyszin_Id = @placeId,
+                        Start = @start,
+                        Lenght = @length
+                    WHERE Id = @Id";
+
+                using (MySqlCommand updateCmd = new MySqlCommand(updateQuery, conn))
+                {
+                    updateCmd.Parameters.AddWithValue("@placeId", placeId);
+                    updateCmd.Parameters.AddWithValue("@start", start);
+                    updateCmd.Parameters.AddWithValue("@length", length);
+                    updateCmd.Parameters.AddWithValue("@Id", id);
+
+                    updateCmd.ExecuteNonQuery();
+                }
+
+                Console.WriteLine("Sikeres módosítás!");
             }
         }
 

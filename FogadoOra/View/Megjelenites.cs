@@ -286,7 +286,9 @@ namespace FogadoOra.View
                                     break;
 
                                 case 4:
-                                    Console.WriteLine("Adjon meg egy id-t!");
+                                new HelyszinController().AllPlace();
+
+                                Console.WriteLine("Adjon meg a helyszín id-t!");
                                     int id=int.Parse(Console.ReadLine());
                                     Console.WriteLine("Adjon meg egy kezdési időpontot");
                                     string start=Console.ReadLine();

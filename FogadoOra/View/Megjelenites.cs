@@ -202,8 +202,7 @@ namespace FogadoOra.View
         {
             Console.WriteLine("admin felület");
             Console.WriteLine("adja meg a jelszót");
-            if (Console.ReadLine() == "admin123")
-            {
+            
                 Console.WriteLine("Sikeres admin belépés");
 
                 string[] menupontok = { "Összes helyszín", "Új helyszín", "Helyszín módosítása","Fogadóóra törlése","Fogadóóra létrehozása", "Fogadóóra szerkesztése","Kijelentkezés" };
@@ -315,7 +314,7 @@ namespace FogadoOra.View
 
             }
 
-        }
+        
         
 
         public void FogadooraModositas()

@@ -187,28 +187,50 @@ namespace FogadoOra.Controllers
             return fogadoorak;
         }
 
-        public void CreateFogadoOra(int placeId, string start, int lenght)
+        public bool CreateFogadoOra(int placeId, DateTime start, int length)
         {
             string connectionString = "server=localhost;database=fogadoora;user=root;password=;";
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
-                string query = @"
-            INSERT INTO fogadoora (Id, Helyszin_Id, Start, Lenght)
-            VALUES (NULL, @placeId, @start, @lenght);";
-
                 conn.Open();
 
-                using (MySqlCommand cmd = new MySqlCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@placeId", placeId);
-                    cmd.Parameters.AddWithValue("@start", start);
-                    cmd.Parameters.AddWithValue("@lenght", lenght);
+                string checkQuery = @"
+                    SELECT COUNT(*) 
+                    FROM fogadoora
+                    WHERE Helyszin_Id = @placeId
+                    AND Start < DATE_ADD(@start, INTERVAL @length MINUTE)
+                    AND DATE_ADD(Start, INTERVAL Lenght MINUTE) > @start;";
 
-                    cmd.ExecuteNonQuery();
+                using (MySqlCommand checkCmd = new MySqlCommand(checkQuery, conn))
+                {
+                    checkCmd.Parameters.AddWithValue("@placeId", placeId);
+                    checkCmd.Parameters.AddWithValue("@start", start);
+                    checkCmd.Parameters.AddWithValue("@length", length);
+
+                    int count = Convert.ToInt32(checkCmd.ExecuteScalar());
+
+                    if (count > 0)
+                    {
+                        Console.WriteLine("Ebben a teremben már van fogadóóra ebben az időpontban!");
+                        return false;
+                    }
                 }
 
-                conn.Close();
+                string insertQuery = @"
+                    INSERT INTO fogadoora (Helyszin_Id, Start, Lenght)
+                    VALUES (@placeId, @start, @length);";
+
+                using (MySqlCommand insertCmd = new MySqlCommand(insertQuery, conn))
+                {
+                    insertCmd.Parameters.AddWithValue("@placeId", placeId);
+                    insertCmd.Parameters.AddWithValue("@start", start);
+                    insertCmd.Parameters.AddWithValue("@length", length);
+
+                    insertCmd.ExecuteNonQuery();
+                }
+
+                return true;
             }
         }
 

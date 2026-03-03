@@ -294,7 +294,7 @@ namespace FogadoOra.View
                                     string start=Console.ReadLine();
                                     Console.WriteLine("Adja meg a hosszát az órának:");
                                     int hossz=int.Parse(Console.ReadLine());    
-                                    new FogadoOraController().CreateFogadoOra(id,start,hossz);
+                                    new FogadoOraController().CreateFogadoOra(id,DateTime.Parse(start),hossz);
                                     break;
 
 

@@ -206,7 +206,7 @@ namespace FogadoOra.View
             {
                 Console.WriteLine("Sikeres admin belépés");
 
-                string[] menupontok = { "Összes helyszín", "Új helyszín", "Helyszín módosítása","Fogadóóra törlése","Fogadóóra létrehozása" };
+                string[] menupontok = { "Összes helyszín", "Új helyszín", "Helyszín módosítása","Fogadóóra törlése","Fogadóóra létrehozása", "Fogadóóra szerkesztése","Kijelentkezés" };
 
                 int current_point = 0;
                 bool megy = true;
@@ -302,6 +302,10 @@ namespace FogadoOra.View
 
                                     Console.WriteLine("Adjon meg egy id-t");
                                     new FogadoOraController().UpdateFogadoOra(Console.ReadLine());
+                                    break;
+
+                                case 6:
+                                    megy=false;
                                     break;
                             }
 

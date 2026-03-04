@@ -42,7 +42,7 @@ namespace FogadoOra.Controllers
         }
 
         // Fogadóóra lekérdezése adott dátumra
-        public List<FogadoOraModel> GetFogadoOraByDate(DateTime date)
+        public List<FogadoOraModel> GetFogadoOraByDate(DateTime start)
         {
             string connectionString = "server=localhost;database=fogadoora;user=root;password=;";
             List<FogadoOraModel> fogadoorak = new List<FogadoOraModel>();
@@ -53,12 +53,14 @@ namespace FogadoOra.Controllers
                     SELECT f.Id, f.Start, f.Lenght, h.Name AS HelyszinNev
                     FROM fogadoora f
                     JOIN helyszin h ON f.Helyszin_Id = h.Id
-                    WHERE DATE(f.Start) = @date";
+                    WHERE f.Start = @start";
 
                 conn.Open();
+
                 using (MySqlCommand cmd = new MySqlCommand(query, conn))
                 {
-                    cmd.Parameters.AddWithValue("@date", date.Date);
+                    cmd.Parameters.AddWithValue("@start", start);
+
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())

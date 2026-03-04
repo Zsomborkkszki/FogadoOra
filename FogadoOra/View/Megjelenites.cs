@@ -328,6 +328,7 @@ namespace FogadoOra.View
 
                             case 8:
                                 megy=false;
+                                Kijelentkezes();
                                 break;
                             }
 

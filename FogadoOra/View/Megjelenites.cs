@@ -144,69 +144,118 @@ namespace FogadoOra.View
 
         public void IdAlapjanFogadoora()
         {
-            FogadoOraMegjelenites();
-            Console.WriteLine("Adjon meg egy id-t!");
-            int id=int.Parse(Console.ReadLine());
-            new JelentkezesController().JelentkezesFogadoOrara(id, currentUser.Id);
+
+            try {
+                FogadoOraMegjelenites();
+                Console.WriteLine("Adjon meg egy id-t!");
+                int id = int.Parse(Console.ReadLine());
+                new JelentkezesController().JelentkezesFogadoOrara(id, currentUser.Id);
+            }
+            
+            
+            catch (Exception ex)
+            {
+                Console.WriteLine("Hiba kiíráskor: " + ex.Message);
+            }
         }
 
-        public void Beallitasok()
-        {
-
-        }
+        
 
         public void FogadoOraMegjelenites()
         {
+
+            try
+            {
+
+           
             FogadoOraController controller = new FogadoOraController();
             List<FogadoOraModel> fogadoOrak = controller.GetAllFogadoOra();
             Console.Clear();
             Kiir(fogadoOrak);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Hiba kiíráskor: " + ex.Message);
+            }
+
         }
 
         public void OraMegjelenitesDatumesOra()
         {
+            try
+            {
 
-            Console.WriteLine("Adjon meg egy dátumot (2026-01-01 00:00:00 formátumban): ");
-            FogadoOraController controller = new FogadoOraController();
-            List<FogadoOraModel> fogadoOrak = controller.GetFogadoOraByDate(DateTime.Parse(Console.ReadLine()));
-            Kiir(fogadoOrak);
+                Console.WriteLine("Adjon meg egy dátumot (2026-01-01 00:00:00 formátumban): ");
+                FogadoOraController controller = new FogadoOraController();
+                List<FogadoOraModel> fogadoOrak = controller.GetFogadoOraByDate(DateTime.Parse(Console.ReadLine()));
+                Kiir(fogadoOrak);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Hiba kiíráskor: " + ex.Message);
+            }
 
         }
 
 
         public void OramegjelenitesDatum()
         {
-            Console.WriteLine("Adjon meg egy dátumot (2026-01-01 formátumban): ");
-            FogadoOraController controller = new FogadoOraController();
-            List<FogadoOraModel> fogadoOrak = controller.GetFogadoOrakOfDay(Console.ReadLine());
-            Kiir(fogadoOrak);
+
+            try
+            {
+                Console.WriteLine("Adjon meg egy dátumot (2026-01-01 formátumban): ");
+                FogadoOraController controller = new FogadoOraController();
+                List<FogadoOraModel> fogadoOrak = controller.GetFogadoOrakOfDay(Console.ReadLine());
+                Kiir(fogadoOrak);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Hiba kiíráskor: " + ex.Message);
+            }
         }
 
         public void KiirAMaiNapra()
         {
-                                                                                                                                                                                                     
-            FogadoOraController controller = new FogadoOraController();
-            List<FogadoOraModel> fogadoOrak = controller.GetTodayFogadoOras();
-            Kiir(fogadoOrak);
-            
-           
+            try
+            {
+                FogadoOraController controller = new FogadoOraController();
+                List<FogadoOraModel> fogadoOrak = controller.GetTodayFogadoOras();
+                Kiir(fogadoOrak);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Hiba kiíráskor: " + ex.Message);
+            }
+
+
         }
 
         public void IdalapjanOra()
         {
-            Console.WriteLine(currentUser.Id);
-            FogadoOraController controller = new FogadoOraController();
-            List<FogadoOraModel> fogadoOrak = controller.GetAllFogadoOraOfUser(currentUser.Id);
-            Kiir(fogadoOrak);
+
+            try
+            {
+                Console.WriteLine(currentUser.Id);
+                FogadoOraController controller = new FogadoOraController();
+                List<FogadoOraModel> fogadoOrak = controller.GetAllFogadoOraOfUser(currentUser.Id);
+                Kiir(fogadoOrak);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Hiba kiíráskor: " + ex.Message);
+            }
         }
         public void Admin()
         {
-            Console.WriteLine("===== ADMIN MENÜ =====");
-          
-            
+
+            try {
+                Console.WriteLine("===== ADMIN MENÜ =====");
+
+
                 Console.WriteLine("Sikeres admin belépés");
 
-                string[] menupontok = { "Összes helyszín", "Új helyszín", "Helyszín módosítása","Fogadóóra törlése","Fogadóóra létrehozása", "Fogadóóra szerkesztése",  "Helyszín törlése", "Összes fogadóóra megjelenítése", "Kijelentkezés" };
+                string[] menupontok = { "Összes helyszín", "Új helyszín", "Helyszín módosítása", "Fogadóóra törlése", "Fogadóóra létrehozása", "Fogadóóra szerkesztése", "Helyszín törlése", "Összes fogadóóra megjelenítése", "Kijelentkezés" };
 
                 int current_point = 0;
                 bool megy = true;
@@ -214,9 +263,9 @@ namespace FogadoOra.View
                 while (megy)
                 {
                     Console.Clear();
-                Console.WriteLine("===== ADMIN MENÜ =====");
+                    Console.WriteLine("===== ADMIN MENÜ =====");
 
-                for (int i = 0; i < menupontok.Length; i++)
+                    for (int i = 0; i < menupontok.Length; i++)
                     {
                         if (i == current_point)
                         {
@@ -287,15 +336,15 @@ namespace FogadoOra.View
                                     break;
 
                                 case 4:
-                                new HelyszinController().AllPlace();
+                                    new HelyszinController().AllPlace();
 
-                                Console.WriteLine("Adjon meg a helyszín id-t!");
-                                    int id=int.Parse(Console.ReadLine());
+                                    Console.WriteLine("Adjon meg a helyszín id-t!");
+                                    int id = int.Parse(Console.ReadLine());
                                     Console.WriteLine("Adjon meg egy kezdési időpontot");
-                                    string start=Console.ReadLine();
+                                    string start = Console.ReadLine();
                                     Console.WriteLine("Adja meg a hosszát az órának:");
-                                    int hossz=int.Parse(Console.ReadLine());    
-                                    new FogadoOraController().CreateFogadoOra(id,DateTime.Parse(start),hossz);
+                                    int hossz = int.Parse(Console.ReadLine());
+                                    new FogadoOraController().CreateFogadoOra(id, DateTime.Parse(start), hossz);
                                     break;
 
 
@@ -306,30 +355,30 @@ namespace FogadoOra.View
                                     new FogadoOraController().UpdateFogadoOra(int.Parse(Console.ReadLine()));
                                     break;
 
-                            case 6:
-                                new HelyszinController().DeletePlace();
-                                
+                                case 6:
+                                    new HelyszinController().DeletePlace();
 
-                                Console.WriteLine("Helyszín tölése");
-                                Console.WriteLine("Sikeresen törölve");
-                                Console.ReadLine();
 
-                                break;
+                                    Console.WriteLine("Helyszín tölése");
+                                    Console.WriteLine("Sikeresen törölve");
+                                    Console.ReadLine();
 
-                            case 7:
+                                    break;
 
-                                FogadoOraController controller = new FogadoOraController();
-                                List<FogadoOraModel> fogadoOrak = controller.GetAllFogadoOra();
+                                case 7:
 
-                                Kiir(fogadoOrak);
-                                Console.WriteLine("Enterrel tovább.");
-                                Console.ReadLine();
-                                break;
+                                    FogadoOraController controller = new FogadoOraController();
+                                    List<FogadoOraModel> fogadoOrak = controller.GetAllFogadoOra();
 
-                            case 8:
-                                megy=false;
-                                Kijelentkezes();
-                                break;
+                                    Kiir(fogadoOrak);
+                                    Console.WriteLine("Enterrel tovább.");
+                                    Console.ReadLine();
+                                    break;
+
+                                case 8:
+                                    megy = false;
+                                    Kijelentkezes();
+                                    break;
                             }
 
                             break;
@@ -337,15 +386,27 @@ namespace FogadoOra.View
                 }
 
             }
-
+        catch (Exception ex)
+            {
+                Console.WriteLine("Hiba kiíráskor: " + ex.Message);
+            }
+}
         
         
 
         public void FogadooraModositas()
         {
-            IdalapjanOra();
-                
-            new FogadoOraController().UpdateFogadoOra(int.Parse(Console.ReadLine()));
+            try
+            {
+                IdalapjanOra();
+
+                new FogadoOraController().UpdateFogadoOra(int.Parse(Console.ReadLine()));
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Hiba kiíráskor: " + ex.Message);
+            }
         }
 
 
@@ -354,59 +415,96 @@ namespace FogadoOra.View
 
         public void Kiir(List<FogadoOraModel> fogadoOrak)
         {
-            
-
-            if (fogadoOrak.Count!=0)
+            try
             {
-                // Fejléc, most az ID-t is tartalmazza
-                Console.WriteLine($"| {"ID",-5} | {"Helyszín",-15} | {"Kezdés",-22} | {"Hossz",-10} |");
-
-                // Elválasztó vonal
-                Console.WriteLine(new string('-', 70));
-                foreach (FogadoOraModel ora in fogadoOrak)
+                if (fogadoOrak.Count != 0)
                 {
-                    Console.WriteLine($"| {ora.Id,-5} | {ora.Place,-15} | {ora.Start,-22} | {ora.Lenght,-10} |");
+                    // Fejléc, most az ID-t is tartalmazza
+                    Console.WriteLine($"| {"ID",-5} | {"Helyszín",-15} | {"Kezdés",-22} | {"Hossz",-10} |");
+
+                    // Elválasztó vonal
+                    Console.WriteLine(new string('-', 70));
+                    foreach (FogadoOraModel ora in fogadoOrak)
+                    {
+                        Console.WriteLine($"| {ora.Id,-5} | {ora.Place,-15} | {ora.Start,-22} | {ora.Lenght,-10} |");
+                    }
+
+                    Console.WriteLine(new string('-', 70));
                 }
 
-                Console.WriteLine(new string('-', 70));
+                else
+                {
+                    Console.WriteLine("Nincs fogadóóra");
+                }
             }
-
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("Nincs fogadóóra");
+                Console.WriteLine("Hiba kiíráskor: " + ex.Message);
             }
 
             // Adatok kiírása
-           
+
         }
       
 
 
         public void JelentkezesTorlese()
         {
-            IdalapjanOra();
-            Console.WriteLine("Adjon meg egy id-t!");
-            int id = int.Parse(Console.ReadLine());
-            new JelentkezesController().JelentkezesTorlese(id, currentUser.Id);
+
+            try
+            {
+                IdalapjanOra();
+                Console.WriteLine("Adjon meg egy id-t!");
+                int id = int.Parse(Console.ReadLine());
+                new JelentkezesController().JelentkezesTorlese(id, currentUser.Id);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Hiba kiíráskor: " + ex.Message);
+            }
         }
 
         public void Kijelentkezes()
         {
-            Program.ClearCurrentUser();
-            Program.UserCheck();
+
+            try
+            {
+                Program.ClearCurrentUser();
+                Program.UserCheck();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Hiba kiíráskor: " + ex.Message);
+            }
         }
 
         public void FelhasznaloTorlese()
         {
-            new UserController().DeleteUser(currentUser.Id);
-            Console.WriteLine(fut);
-            fut = false;
-            Kijelentkezes();
+            try
+            {
+                new UserController().DeleteUser(currentUser.Id);
+                Console.WriteLine(fut);
+                fut = false;
+                Kijelentkezes();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Hiba kiíráskor: " + ex.Message);
+            }
         }
 
          public void FelhasznaloModositas()
         {
-            new UserController().UpdateUser();
+            try
+            {
+                new UserController().UpdateUser();
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Hiba kiíráskor: " + ex.Message);
+            }
 
         }
     }

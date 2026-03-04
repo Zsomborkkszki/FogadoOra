@@ -200,12 +200,12 @@ namespace FogadoOra.View
         }
         public void Admin()
         {
-            Console.WriteLine("admin felület");
+            Console.WriteLine("===== ADMIN MENÜ =====");
             Console.WriteLine("adja meg a jelszót");
             
                 Console.WriteLine("Sikeres admin belépés");
 
-                string[] menupontok = { "Összes helyszín", "Új helyszín", "Helyszín módosítása","Fogadóóra törlése","Fogadóóra létrehozása", "Fogadóóra szerkesztése",  "Helyszín törlése" ,"Kijelentkezés" };
+                string[] menupontok = { "Összes helyszín", "Új helyszín", "Helyszín módosítása","Fogadóóra törlése","Fogadóóra létrehozása", "Fogadóóra szerkesztése",  "Helyszín törlése", "Összes fogadóóra megjelenítése", "Kijelentkezés" };
 
                 int current_point = 0;
                 bool megy = true;
@@ -306,17 +306,28 @@ namespace FogadoOra.View
                                     break;
 
                             case 6:
-
-
-                                Console.WriteLine("Adjon meg egy id-t");
+                                new HelyszinController().DeletePlace();
+                                
 
                                 Console.WriteLine("Helyszín tölése");
+                                Console.WriteLine("Sikeresen törölve");
+                                Console.ReadLine();
 
                                 break;
 
-                                case 7:
-                                    megy=false;
-                                    break;
+                            case 7:
+
+                                FogadoOraController controller = new FogadoOraController();
+                                List<FogadoOraModel> fogadoOrak = controller.GetAllFogadoOra();
+
+                                Kiir(fogadoOrak);
+                                Console.WriteLine("Enterrel tovább.");
+                                Console.ReadLine();
+                                break;
+
+                            case 8:
+                                megy=false;
+                                break;
                             }
 
                             break;

@@ -25,7 +25,7 @@ namespace FogadoOra.Controllers
                 }
             }
         }
-        public void NewPlace() 
+        public void NewPlace()
         {
             using (MySqlConnection connector = new MySqlConnection(connectionString))
             {
@@ -35,9 +35,9 @@ namespace FogadoOra.Controllers
                 MySqlCommand command = new MySqlCommand("INSERT INTO helyszin (Name) VALUES (@Name)", connector);
                 command.Parameters.AddWithValue("@Name", nev);
                 command.ExecuteNonQuery();
-                
+
                 Console.WriteLine("Sikeres helyszín hozzáadás!");
-                
+
             }
         }
         public void UpdatePlace()
@@ -55,6 +55,20 @@ namespace FogadoOra.Controllers
                 command.Parameters.AddWithValue("@OldName", nev);
                 command.ExecuteNonQuery();
                 Console.WriteLine("Sikeres helyszín módosítás!");
+            }
+        }
+        public void DeletePlace()
+        {
+            //Helyszín törlése
+            using (MySqlConnection connector = new MySqlConnection(connectionString))
+            {
+                connector.Open();
+                Console.WriteLine("Törölni kívánt helyszín Neve: ");
+                string nev = Console.ReadLine();
+                MySqlCommand command = new MySqlCommand("DELETE FROM helyszin WHERE Name = @Name", connector);
+                command.Parameters.AddWithValue("@Name", nev);
+                command.ExecuteNonQuery();
+                Console.WriteLine("Sikeres helyszín törlés!");
             }
         }
     }

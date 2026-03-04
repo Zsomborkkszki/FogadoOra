@@ -26,6 +26,8 @@ namespace FogadoOra.View
             if (user != null) {
                 FoMegjelenites();
             }
+            
+
         }
 
         public void Regisztracio()
@@ -58,7 +60,7 @@ namespace FogadoOra.View
            
             int current_point = 0;
            
-            Action[] fuggvenyek = { FogadoOraMegjelenites, OraMegjelenitesDatumesOra, OramegjelenitesDatum, KiirAMaiNapra, IdalapjanOra, IdAlapjanFogadoora, FogadooraModositas,  JelentkezesTorlese,  FelhasznaloModositas,FelhasznaloTorlese                   , Kijelentkezes };
+            Action[] fuggvenyek = { FogadoOraMegjelenites, OraMegjelenitesDatumesOra, OramegjelenitesDatum, KiirAMaiNapra, IdalapjanOra, IdAlapjanFogadoora,  JelentkezesTorlese,  FelhasznaloModositas,FelhasznaloTorlese                   , Kijelentkezes };
 
             string[] fuggvenyNevek =
 {
@@ -70,8 +72,7 @@ namespace FogadoOra.View
     "Kiiratás a mai napit",
     "Saját fogadóórák",
     "Fogadóórára jelentkezés",
-    "Fogadóóra szekesztése"
-,    "Jelentkezés törése",
+    "Jelentkezés törése",
     "Felhasználó módosítása",
     "Felhasználó törlése",
 
@@ -406,9 +407,7 @@ namespace FogadoOra.View
          public void FelhasznaloModositas()
         {
             new UserController().UpdateUser();
-            
-            
-            
+
         }
     }
 }

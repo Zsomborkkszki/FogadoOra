@@ -316,13 +316,13 @@ namespace FogadoOra.View
 
                                 case 1: // Új helyszín
                                     new HelyszinController().NewPlace();
-                                    Console.WriteLine("\nEnterrel tovább...");
+                                    Console.WriteLine("Sikeresen végrehajtva! Enterre tovább");
                                     Console.ReadLine();
                                     break;
 
                                 case 2: // Helyszín módosítása
                                     new HelyszinController().UpdatePlace();
-                                    Console.WriteLine("\nEnterrel tovább...");
+                                    Console.WriteLine("Sikeresen végrehajtva! Enterre tovább");
                                     Console.ReadLine();
                                     break;
 
@@ -331,6 +331,10 @@ namespace FogadoOra.View
 
                                     Console.WriteLine("Adjon meg egy id-t");
                                     new FogadoOraController().DeleteFogadoOra(int.Parse(Console.ReadLine()));
+
+
+                                    Console.WriteLine("Sikeresen végrehajtva! Enterre tovább");
+                                    Console.ReadLine();
 
 
                                     break;
@@ -345,6 +349,10 @@ namespace FogadoOra.View
                                     Console.WriteLine("Adja meg a hosszát az órának:");
                                     int hossz = int.Parse(Console.ReadLine());
                                     new FogadoOraController().CreateFogadoOra(id, DateTime.Parse(start), hossz);
+
+
+                                    Console.WriteLine("Sikeresen végrehajtva! Enterre tovább");
+                                    Console.ReadLine();
                                     break;
 
 
@@ -353,6 +361,9 @@ namespace FogadoOra.View
 
                                     Console.WriteLine("Adjon meg egy id-t");
                                     new FogadoOraController().UpdateFogadoOra(int.Parse(Console.ReadLine()));
+
+                                    Console.WriteLine("Sikeresen végrehajtva! Enterre tovább");
+                                    Console.ReadLine();
                                     break;
 
                                 case 6:
@@ -360,7 +371,7 @@ namespace FogadoOra.View
 
 
                                     Console.WriteLine("Helyszín tölése");
-                                    Console.WriteLine("Sikeresen törölve");
+                                    Console.WriteLine("Sikeresen végrehajtva! Enterre tovább");
                                     Console.ReadLine();
 
                                     break;
@@ -371,7 +382,7 @@ namespace FogadoOra.View
                                     List<FogadoOraModel> fogadoOrak = controller.GetAllFogadoOra();
 
                                     Kiir(fogadoOrak);
-                                    Console.WriteLine("Enterrel tovább.");
+                                    Console.WriteLine("Sikeresen végrehajtva! Enterre tovább");
                                     Console.ReadLine();
                                     break;
 
@@ -380,7 +391,7 @@ namespace FogadoOra.View
                                     Kijelentkezes();
                                     break;
                             }
-
+                            
                             break;
                     }
                 }

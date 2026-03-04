@@ -81,7 +81,7 @@ namespace FogadoOra.View
 
             while (fut)
             {
-                Console.WriteLine("----Megjelenítés-----");
+                Console.WriteLine("----Fogadóórák-----");
                 for (int i = 0; i < fuggvenyek.Length; i++)
                 {
                     if (i == current_point)

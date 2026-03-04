@@ -125,7 +125,7 @@ namespace FogadoOra.View
                     case ConsoleKey.Enter:
                         Console.Clear();
                         fuggvenyek[current_point]();
-                        Console.WriteLine("Enterre tovább...");
+                        Console.WriteLine("Művelet sikeresen végrehajtva! Enterre tovább...");
                         Console.ReadLine();
                         break;
                     default:

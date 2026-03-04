@@ -202,7 +202,7 @@ namespace FogadoOra.View
         public void Admin()
         {
             Console.WriteLine("===== ADMIN MENÜ =====");
-            Console.WriteLine("adja meg a jelszót");
+          
             
                 Console.WriteLine("Sikeres admin belépés");
 
@@ -214,9 +214,9 @@ namespace FogadoOra.View
                 while (megy)
                 {
                     Console.Clear();
-                    Console.WriteLine("---- Helyszín menü ----\n");
+                Console.WriteLine("===== ADMIN MENÜ =====");
 
-                    for (int i = 0; i < menupontok.Length; i++)
+                for (int i = 0; i < menupontok.Length; i++)
                     {
                         if (i == current_point)
                         {

@@ -306,21 +306,28 @@ namespace FogadoOra.View
                                     break;
 
                             case 6:
-
-                                Console.WriteLine("Adjon meg egy id-t");
+                                new HelyszinController().DeletePlace();
+                                
 
                                 Console.WriteLine("Helyszín tölése");
+                                Console.WriteLine("Sikeresen törölve");
+                                Console.ReadLine();
 
                                 break;
 
                             case 7:
 
-                                new FogadoOraController().GetAllFogadoOra();
+                                FogadoOraController controller = new FogadoOraController();
+                                List<FogadoOraModel> fogadoOrak = controller.GetAllFogadoOra();
+
+                                Kiir(fogadoOrak);
+                                Console.WriteLine("Enterrel tovább.");
+                                Console.ReadLine();
                                 break;
 
-                                case 8:
-                                    megy=false;
-                                    break;
+                            case 8:
+                                megy=false;
+                                break;
                             }
 
                             break;

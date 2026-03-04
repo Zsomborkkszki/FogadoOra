@@ -31,7 +31,7 @@ namespace FogadoOra
                     int current_point = 0;
                     bool megy = true;
 
-                    string[] menuNevek = { "Regisztráció", "Bejelentkezés","Admin", "Kilépés" };
+                    string[] menuNevek = { "Regisztráció", "Bejelentkezés", "Kilépés" };
 
                     while (megy)
                     {
@@ -100,12 +100,9 @@ namespace FogadoOra
                                         }
                                         break;
 
-                                    case 2:
-                                        new Megjelenites().Admin();
-                                        
-                                        break;
+                                   
 
-                                    case 3: // Kilépés
+                                    case 2: // Kilépés
                                         megy = false;
                                         break;
                                 }

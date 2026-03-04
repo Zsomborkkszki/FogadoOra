@@ -107,6 +107,7 @@ namespace FogadoOra
 
                                     case 3: // Kilépés
                                         megy = false;
+                                        Environment.Exit(0);
                                         break;
                                 }
 

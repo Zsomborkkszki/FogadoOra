@@ -236,7 +236,6 @@ namespace FogadoOra.View
 
             try
             {
-                Console.WriteLine(currentUser.Id);
                 FogadoOraController controller = new FogadoOraController();
                 List<FogadoOraModel> fogadoOrak = controller.GetAllFogadoOraOfUser(currentUser.Id);
                 Kiir(fogadoOrak);
